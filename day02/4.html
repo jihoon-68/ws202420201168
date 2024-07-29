@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원 관리 페이지</title>
+    <!-- 인터널 방식(내부 설정 방식) -->
+    <style>
+        .saveBtn {
+            width:100px; 
+            height: 30px; 
+            background-color: red; 
+            border: 0; 
+            border-radius: 6px; 
+            box-shadow: 1px 1px 2px;
+        }
+        /* css3maker.com에서 설정 후 복사 */
+        .element {
+            border: 2px solid rgba(100, 100, 100, 1);
+            border-radius: 4px;
+            background-color: rgba(247, 203, 203, 0.5);
+            box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.77);
+            text-shadow: 4px 2px 4px rgba(0, 0, 0, 0.3);
+            padding: 10px 0px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div>
+            <!-- 제목 -->
+             <h1 class="element">회원 관리 페이지</h1>
+        </div>
+        <div>
+            <!-- 입력 폼 -->
+             <form action="">
+                <table>
+                    <tr>
+                        <th><label for="name">이름</label></th>
+                        <td><input type="text" name="" id="name" placeholder="성명을 입력 하세요"></td>
+                    </tr>
+                    <tr>
+                        <th><label for="dept">부서</label></th>
+                        <td><input type="text" name="" id="dept" value="경영지원"></td>
+                    </tr>
+                    <tr>
+                        <th><label for="rank">직책</label></th>
+                        <td><input type="text" name="" id="rank" value="과장"></td>
+                    </tr>
+                    <tr>
+                        <th><label for="gender">성별</label></th>
+                        <td>
+                            <input type="radio" name="gender" id="gender"> 남성
+                            <input type="radio" name="gender" id="gender" checked> 여성
+                            <input type="radio" name="gender" id="gender"> 기타
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label for="favorit">관심</label></th>
+                        <td>
+                            <input type="checkbox" name="favorit" id="favorit" value="sw개발" checked> SW개발
+                            <input type="checkbox" name="favorit" id="favorit" value="영업" checked> 영업
+                            <input type="checkbox" name="favorit" id="favorit" value="독서"> 독서
+                            <input type="checkbox" name="favorit" id="favorit" value="직업교육"> 직업교육
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label for="photo">사진</label></th>
+                        <td><input type="file" name="" id="photo"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="submit" class="saveBtn" value="SAVE">
+                        </td>
+                    </tr>
+                </table>
+             </form>
+        </div>
+        <div>
+            <!-- 목록 -->
+        </div>
+    </div>
+</body>
+</html>

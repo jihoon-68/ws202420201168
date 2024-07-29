@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        //id 값을 태크객체를  객체로 참조
+        var num= 100; 
+
+        //window.addEventListener('load', function() {});
+        window.onload = function(){
+            console.log(num.valueOf());
+            console.dir(window.document);
+            var demo = document.getElementById('demo');
+            var changeBth =document.getElementById('changeBth');
+            var resetBtn = document.getElementById('resetBtn');
+            changeBth.onclick = function(){
+                demo.innerHTML = "<h2>클릭<h2>";
+                document.body.bgColor="pink";
+                console.log("클릭");
+            }
+            resetBtn.addEventListener('click', function() {
+                demo.innerHTML = "JavaScript can change HTML content.";
+                document.body.bgColor="";
+                console.log("초기화");
+            })
+
+        }
+    </script>
+
+    
+    
+</head>
+<body>
+    
+    <p id="demo">JavaScript can change HTML content.</p>
+
+    <!-- 인라인 적용 방식 -->
+
+    <!--명령어 대소문자 구분 있음-->
+    <button type="button" id="changeBth">Change</button>
+    <button type="button" id="resetBtn">Reset</button>
+
+    
+</body>
+</html>

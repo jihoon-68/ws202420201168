@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+
+        window.onload = function(){
+            var memo = document.getElementById('demo');
+            var changeBtn = document.querySelector('#changeBth');
+            var resetBtn = document.querySelector('#resetBtn');
+            var inputBox = document.getElementById('inputBox');
+            var a1 = document.querySelector('#a1');
+            var delete1 = document.querySelector('#delete1');
+            
+            var handleEvent = function(event, a){
+                var num=a;
+                memo.innerHTML += `<tr align="center">
+                <td><input type="checkbox"></td>
+                    <td id="text${num}">${inputBox.value}</td>
+                    <td><button>수정</button></td>
+                    <td><button>삭제</button></td>
+                </tr>`
+                console.log(memo);
+                inputBox.value ="";
+                inputBox.focus();
+            }
+
+            
+
+
+            changeBtn.addEventListener('click',handleEvent);
+            
+            console.log(memo,changeBtn, resetBtn , inputBox);
+            inputBox.addEventListener('keyup',function(event){
+                if(event.keyCode == 13){
+                    handleEvent(event,5);
+
+                }
+                
+            })
+
+            delete1.addEventListener('click',function(e) {
+                console.log(2)
+                memo.innerHTML -=
+                `<tr>
+                <td><input type="checkbox"></td>
+                    <td></td>
+                    <td><button>수정</button></td>
+                    <td><button>삭제</button></td>
+                </tr>`
+            })
+
+            a1.addEventListener('click',function(e){
+
+            })
+
+
+        }
+    </script>
+
+    
+    
+</head>
+<body>
+    <input type="text" id="inputBox" value="asdadsa">
+    <p id="text">JavaScript can change HTML content.</p>
+
+    <!-- 인라인 적용 방식 -->
+
+    <!--명령어 대소문자 구분 있음-->
+    <button type="button" id="changeBth">Change</button>
+    <button type="button" id="resetBtn">Reset</button>
+
+    <table  width="550" border="1">
+        <tbody >
+            <tr>
+                <th>확인</th>
+                <th>할일</th>
+                <th>수정</th>
+                <th>삭제</th>
+            </tr>
+        </tbody>
+        
+        <tbody id="demo">
+            <tr align="center">
+                <td><input type="checkbox"></td>
+                <td id="text1">개밥주기</td>
+                <td><button id="a1">수정</button></td>
+                <td><button id="delete1">삭제</button></td>
+            </tr>
+        </tbody>
+        
+    </table>
+
+    
+</body>
+</html>

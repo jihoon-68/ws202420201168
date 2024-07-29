@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        //id 값을 태크객체를  객체로 참조
+        var num= 100; 
+
+        //window.addEventListener('load', function() {});
+        window.onload = function(){
+            var memo = document.getElementById('demo');
+            var changeBtn = document.querySelector('#changeBth');
+            var resetBtn = document.querySelector('#resetBtn');
+            var inputBox = document.querySelector('#inputBox');
+
+            console.log(memo,changeBtn, resetBtn , inputBox);
+
+            //changeBtn.onclick = function(event){} 이렇게도 가능
+            
+            //코드을 흐름을 자연어로 설명하는 것을 의사 코드라고 함
+            //의사코드로 설명하것을 구현하면 의사 코드 바로 지우기
+            changeBtn.addEventListener('click', function(event){
+                memo.innerHTML = inputBox.value;
+                console.log('적용')
+                inputBox.value="";
+                inputBox.focus();
+            })
+            resetBtn.addEventListener('click', function(event){
+                memo.innerHTML ='JavaScript can change HTML content.';
+                inputBox.value ='여기에 입력';
+                inputBox.focus();
+                console.log('리셋')
+            })
+
+            //선언시 키워드가 없으면 window.memo
+            //var는 스코프 범위가 함수 단위
+            //let은 자바처럼 스코프 번위가 블록 범위이다.
+            
+
+        }
+    </script>
+
+    
+    
+</head>
+<body>
+    <input type="text" id="inputBox" value="asdadsa">
+    <p id="demo">JavaScript can change HTML content.</p>
+
+    <!-- 인라인 적용 방식 -->
+
+    <!--명령어 대소문자 구분 있음-->
+    <button type="button" id="changeBth">Change</button>
+    <button type="button" id="resetBtn">Reset</button>
+
+    
+</body>
+</html>

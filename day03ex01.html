@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <p id="demo">JavaScript can change HTML content.</p>
+
+    <!-- 인라인 적용 방식 -->
+
+    <!--명령어 대소문자 구분 있음-->>
+    <button type="button" onclick='
+            document.getElementById("demo").innerHTML = "Hello JavaScript!";
+            document.body.bgColor="yellow"'>Change</button>
+    <button type="button" onclick='
+            document.getElementById("demo").innerHTML = "JavaScript can change HTML content.";
+            document.body.bgColor=""'>Reset</button>
+</body>
+</html>

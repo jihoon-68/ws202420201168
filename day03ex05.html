@@ -13,7 +13,6 @@
                 {sep:103, title:"식사", done:false},
                 {sep:104, title:"청소", done:false},
             ];
-            var seqCnt =105;
 
             var memo = document.getElementById('demo');
             var inputBox = document.getElementById('inputBox');
@@ -23,26 +22,56 @@
             var changeBtn = document.querySelector('#changeBth');
             var resetBtn = document.querySelector('#resetBtn');
             
-            
+            //요소삭제
             HTMLButtonElement.prototype.handleDelEvt = function (btn) {
-                
+                var trElement = btn.parentElement.parentElement;
+                var todoLiists=[];
+                todoLiist.forEach(function(todoObj){
+                    if(trElement.dataset.sep != todoObj.sep){
+                        todoLiists.push(todoObj);
+                    }
+                })
+                todoLiist = todoLiists;
+                drawList();
             }
 
-
+            //요소 수정
             HTMLButtonElement.prototype.editClickHandle = function(btn) {
+                var trElement = btn.parentElement.parentElement;
+                trElement.innerHTML = `<tr align="center">
+                    <td><input type="checkbox"></td>
+                        <td><input type="text" id="modifyinput"></td>
+                        <td><button id = "modifyBth">수정</button></td>
+                        <td><button onClick="handleDelEvt(this)">삭제</button></td>
+                    </tr>`;
+                var modifyinput = document.getElementById('modifyinput');
+                var modifyBth = document.querySelector('#modifyBth');
+                
+                modifyinput.onkeyup =function(event){
+                    if(event.keyCode == 13){
+                        todoLiist.forEach(function(todoObj){
+                            if(trElement.dataset.sep == todoObj.sep){
+                                todoObj.title = modifyinput.value;
+                            }
+                        })
+                        drawList();
+                    }
+                }
+                modifyBth.addEventListener('click',function(){
+                    todoLiist.forEach(function(todoObj){
+                        if(trElement.dataset.sep == todoObj.sep){
+                            todoObj.title = modifyinput.value;
+                        }
+                    })
+                    drawList();
+                })
             }
-
-
-
-
-
 
             //추가 함수
-            function drawList(){;
+            function drawList(){
                 demo.innerHTML=" "
                 todoLiist.forEach(function(todoObj){
-                    console.log(todoObj.title)
-                    memo.innerHTML += `<tr align="center" dats-sep="${todoObj.sep}">
+                    memo.innerHTML += `<tr align="center" data-sep="${todoObj.sep}">
                     <td><input type="checkbox"></td>
                         <td>${todoObj.title}</td>
                         <td><button onclick="editClickHandle(this)">수정</button></td>
@@ -50,15 +79,15 @@
                     </tr>`
                 })
             }
+            drawList();
 
 
             //검색 함수
             function searchList(e){
                 demo.innerHTML=" "
                 todoLiist.forEach(function(todoObj){
-                    console.log(1);
                     if(search.value == todoObj.title || search.value == ""){
-                        memo.innerHTML += `<tr align="center">
+                        memo.innerHTML += `<tr align="center" data-sep="${todoObj.sep}">
                             <td><input type="checkbox"></td>
                             <td>${todoObj.title}</td>
                             <td><button onclick="editClickHandle(this)">수정</button></td>
@@ -69,26 +98,29 @@
             }
 
             //목록추가
-            var handleEvent = function(event, a){
-                
-                todoLiist.push({sep:a,title: inputBox.value, done:false});
-                console.log(todoLiist);
+            var handleEvent = function(event, nextnum){
+                todoLiist.push({sep:nextnum,title: inputBox.value, done:false});
                 drawList();
-                console.log(memo);
                 inputBox.value ="";
                 inputBox.focus();
             }
-            changeBtn.addEventListener('click',handleEvent);
-            inputBox.addEventListener('keyup',function(event){
+            inputBox.addEventListener('keyup',function(event) {
                 if(event.keyCode == 13){
-                    var a =todoLiist[todoLiist.length-1].sep+1;
-                    handleEvent(event,a);
+                    var nextnum = todoLiist[todoLiist.length-1].sep+1;
+                    handleEvent(event,nextnum);
                 }
             })
 
+            changeBtn.addEventListener('click', function(event){
+                var nextnum = todoLiist[todoLiist.length-1].sep+1;
+                handleEvent(event,nextnum);
+            });
+
+            
+
             //목록 추가 입력칸 초기화
             resetBtn.addEventListener('click',function(event){
-                inputBox.value=""
+                inputBox.value="";
             })
             
             //검색
@@ -96,15 +128,8 @@
             search.addEventListener('keyup',function(event){
                 if(event.keyCode == 13){
                     searchList(event);
-                    console.log(1);
                 }
             })
-
-            
-
-
-
-
         }
     </script>
 
@@ -112,9 +137,9 @@
     
 </head>
 <body>
-    등록:<input type="text" id="inputBox" value="asdadsa">
-    <button type="button" id="changeBth">Change</button>
-    <button type="button" id="resetBtn">Reset</button>
+    등록/수정:<input type="text" id="inputBox" value="asdadsa">
+    <button type="button" id="changeBth">등록</button>
+    <button type="button" id="resetBtn">지우기</button>
     <hr>
     검색:<input type="text" id="search">
     <button type="button"id="searchBth"> 검색</button>
@@ -127,14 +152,8 @@
                 <th>삭제</th>
             </tr>
         </tbody>
-        
         <tbody id="demo">
-            <tr align="center">
-                <td><input type="checkbox"></td>
-                <td>개밥주기</td>
-                <td><button>수정</button></td>
-                <td><button>삭제</button></td>
-            </tr>
+            
         </tbody>
         
     </table>

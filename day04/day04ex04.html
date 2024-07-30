@@ -61,23 +61,32 @@
                     ckBox:false
                 },
             ];
-
-
         }
 
+        var list = document.getElementById('list');
+        var name = document.getElementById('departmentIput');
+        var rank = document.getElementById('rankIput');
 
+        var imgBtn = document.querySelector('#imgIputBtn');
+        var submitBtn = document.querySelector('#submitBtn'); 
+
+
+        //기본 생성 함수
+        function drawList (){
+            //리스트 값에 따라 생성
+        }
 
         
     </script>
 </head>
 <body>
     <form action="#">
-        이름<input type="text" value="홍길동"><br>
-        부서<input type="text" value="개발"><br>
-        직책<input type="text" value="대리"><br>
-        사진<button>파일 선택</button> 선택된 파일 없음<br>
+        이름<input id="nameIput" type="text" value="홍길동"><br>
+        부서<input id="departmentIput"type="text" value="개발"><br>
+        직책<input id="rankIput" type="text" value="대리"><br>
+        사진<button type="button" id="imgIputBtn">파일 선택</button> 선택된 파일 없음<br>
         <br>
-        <button type="submit"  style="border: 0; border-radius: 5px; background-color: rgb(211, 51, 51); color: white; width: 100px; height: 30px;">새 사원 추가</button>
+        <button id="submitBtn" type="submit"  style="border: 0; border-radius: 5px; background-color: rgb(211, 51, 51); color: white; width: 100px; height: 30px;">새 사원 추가</button>
     </form>
 
     <hr>
@@ -105,7 +114,6 @@
                 </tr>
             </tbody>
             <tbody>
-
                 <tr>
                     <td rowspan="3"><input type="checkbox"></td>
                     <td rowspan="3">1043</td>
@@ -119,41 +127,47 @@
                 <tr>
                     <td colspan="4">
                         <table with="100%" class="subtbl">
-                            <tr>
-                                <td>번호</td>
-                                <td>댓글 내용</td>
-                                <td>작성자</td>
-                                <td>수정</td>
-                                <td>삭제</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>ㅁㄴㅇㅁㄴㅇ</td>
-                                <td>송민규</td>
-                                <td><button type="button">수정</button></td>
-                                <td><button type="button"> 삭제</button></td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>ㅁㄴㅇㅁㄴㅇ</td>
-                                <td>이창준</td>
-                                <td><button type="button">수정</button></td>
-                                <td><button type="button"> 삭제</button></td>
-                            </tr>
+                            <tbody>
+                                <tr>
+                                    <td>번호</td>
+                                    <td>댓글 내용</td>
+                                    <td>작성자</td>
+                                    <td>수정</td>
+                                    <td>삭제</td>
+                                </tr>
+                            </tbody>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>ㅁㄴㅇㅁㄴㅇ</td>
+                                    <td>송민규</td>
+                                    <td><button type="button">수정</button></td>
+                                    <td><button type="button"> 삭제</button></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>ㅁㄴㅇㅁㄴㅇ</td>
+                                    <td>이창준</td>
+                                    <td><button type="button">수정</button></td>
+                                    <td><button type="button"> 삭제</button></td>
+                                </tr>
+                            </tbody>
+                            <tbody>
+                                <tr>
+                                    <td colspan="5">
+                                        댓글
+                                        <input type="text" style="width: 50%; margin: 5px; ">
+                                        작성자
+                                        <input type="text" style="width: 50px;">
+                                        <input type="button" value="댓글입력">
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table>
-                        
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="4">
-                        댓글
-                        <input type="text" style="width: 50%; margin: 5px; ">
-                        작성자
-                        <input type="text" style="width: 50px;">
-                        <input type="button" value="댓글입력">
                     </td>
                 </tr>
             </tbody>
+
         </table>
     </form>
     

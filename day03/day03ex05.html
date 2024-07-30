@@ -9,6 +9,7 @@
         console.log(loadTodolist);
         var todoList =[];
         var seqCnt =0;
+        console.log(loadTodolist? 1:0);
         if(loadTodolist){
             todoList=loadTodolist;
             seqCnt = (todoList[0] ? todoList[todoList.length-1].seq+1 : 0);

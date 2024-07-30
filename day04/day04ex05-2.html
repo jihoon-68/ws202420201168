@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            border: 1px solid navy;
+            padding: 5px;
+            border-radius: 8px;
+        }
+        div.header {
+            overflow: hidden;
+        }
+        div.middle {
+            overflow: hidden;
+        }
+        div.footer {
+            height: 100px;
+        }
+        div.container {
+            width: 1000px;
+            margin: auto;
+        }
+        div.header h1 {
+            text-align: center;
+        }
+        div.header div {
+            height: 50px;
+        }
+
+        div.middle > div:nth-child(1) {
+            width: 180px;
+        }
+        div.middle > div:nth-child(2) {
+            width: 590px;
+        }
+        div.middle > div:nth-child(3) {
+            width: 180px;
+        }
+        div.middle > div {
+            float: left;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Hello world</h1>
+            <div></div>
+        </div>
+        <div class="middle">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="footer">
+
+        </div>
+    </div>
+</body>
+</html>

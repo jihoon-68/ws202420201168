@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <style>
+        div {
+            padding: 5px;
+            border-radius: 8px;
+            border: 1px solid navy;
+            margin: 10px 0 0 0;
+        }
+        div.header{
+            margin: 0 auto;
+        }
+        .nav{
+            margin: 10px;
+            border: 0px solid rgb(255, 255, 255);
+            border-bottom: 1px solid navy;
+            padding: 0px;
+            border-radius: 0px;
+        }
+        div.header ul li:hover{
+
+            font-size: 30px;
+            border-bottom: 2px solid navy;
+            color: navy;
+        }
+        div.header h1{
+            color: navy;
+            text-align: center;
+            margin: 10px auto;
+        }
+        ul{
+            margin: auto;
+            padding: 0;
+            border: 0px solid red;
+            /*heigt: overflow로 펴기 가능*/
+            overflow: hidden;
+            width: 600px;
+        }
+        div.header ul li{
+            width: 120px;
+            height: 50px;
+            border: 0px solid black;
+            text-align: center;
+            list-style: none;
+            float: left;
+            box-sizing: border-box;
+            line-height: 50px;
+        }
+        
+        div.comtainer{
+            overflow: hidden;
+        }
+        div.middle {
+            overflow: hidden;
+        }
+        div.footer {
+            height: 100px;
+            display: flex;
+        }
+        div.container {
+            width: 1000px;
+            margin: auto;
+        }
+        div.header h1 {
+            text-align: center;
+        }
+        div.header div {
+            height: 50px;
+        }
+        div.middle > div:nth-child(1) {
+            width: 180px;
+        }
+        div.middle > div:nth-child(2) {
+            width: 550px;
+            margin: 10px 20px;
+        }
+        div.middle > div:nth-child(3) {
+            width: 180px;
+        }
+        div.middle > div {
+            float: left;
+            height: 300px;
+        }
+        img
+        {
+            max-width: 100%;
+            max-height: 100%;
+            display: block;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>박지훈의 소프트웨어 공방</h1>
+            <div class="nav">
+                <ul>
+                    <li>홈</li>
+                    <li>프로필</li>
+                    <li>사진</li>
+                    <li>노트</li>
+                    <li>할일</li>
+                </ul>
+            </div>
+        </div> 
+        <div class="middle">
+            <div><img src="img/download.jpg" alt=""></div>
+            <div>
+                <h2>지우글 속보</h2>
+                <div> 충격!! 속보 운동판 배승환 대표 역주행해 연행....</div>
+                <div> 송민규 광주서 노상방뇨해 사회적 공분.. 김OO 양 "그런 사람 모릅니다.."</div>
+                <div> 충격!! 이번 마블시리즈 닥터둠 배우 로버트 주니어로 캐스팅되어 충격  </div>
+            </div>
+            <div><img src="img/images.jpg" alt=""></div>
+        </div>
+        <div class="footer">
+            <img src="img/download.png" alt="">
+            <img src="img/download.png" alt="">
+            <img src="img/download.png" alt="">
+
+        </div>
+
+    </div>
+    
+</body>
+</html>

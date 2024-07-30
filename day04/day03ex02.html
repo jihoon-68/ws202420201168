@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    
+</head>
+<body>
+    <form action="#">
+        <fieldset>
+            <input type="text" id="input1">
+            <select id ="input2">
+                <option value='1'>+</option>
+                <option value='2'>-</option>
+                <option value='3'>/</option>
+                <option value='4'>*</option>
+            </select>
+            <input type="text" id="input3">
+            =
+            <input type="text" id="text1">
+            <button id="inputBtn" onclick="add()">연산</button>
+        </fieldset>
+    </form>
+    <script>
+        input1 = document.getElementById('input1');
+        input2 = document.getElementById('input2');
+        input3 = document.getElementById('input3');
+        text1 = document.getElementById('text1');
+        
+        function add(){
+            var inputval1 = parseInt(input1.value);
+            var inputval2 = parseInt(input2.value);
+            var inputval3 = parseInt(input3.value);
+
+            switch(inputval2){
+                case 1:
+                    text1.value= inputval1 + inputval3;
+                    break;
+                case 2:
+                    if(inputval1>inputval3){
+                        text1.value = inputval1 -inputval3;
+                        break;
+                    }else{
+                        text1.value = inputval3 -inputval1;
+                        break;
+                    }
+                case 3:
+                    if(inputval1!=0&&inputval2!=0){
+                        text1.value = inputval1  / inputval3;
+                        break;
+                    }
+                case 4:
+                    text1.value = inputval1  * inputval3;
+                    break;
+                default:
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>

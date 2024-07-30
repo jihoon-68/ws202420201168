@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function validationForm(from){
+            event.preventDefault();
+            console.log()
+        }
+    </script>
+</head>
+<body>
+    <h1>JS Form Validation</h1>
+    <form action="#" id="myForm">
+        제목: <input title="text" name="title"><br>
+        이름: <input type="text" name="name"><br>
+        내용: <textarea name="content"></textarea>
+         <input type="submit" value="저장" >        
+    </form>
+    <script>
+        var myForm = document.getElementById('myForm');
+        myForm.onsubmit = function (event){
+            event.preventDefault();
+            if(myForm.title.value == ""){
+                alert('제목입력');
+                myForm.title.focus();
+                return;
+                
+            }
+            if(myForm.name.value == ""){
+                alert('이름입력');
+                myForm.name.focus();
+                return;
+                
+            }
+            if(myForm.content.value == ""){
+                alert('내용입력');
+                myForm.content.focus();
+                return;
+                
+            }
+            myForm.method ='get';
+            myForm.submit();
+        }
+    </script>
+</body>
+</html>

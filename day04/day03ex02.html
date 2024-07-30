@@ -30,10 +30,11 @@
         text1 = document.getElementById('text1');
         
         function add(){
+            event.preventDefault();
             var inputval1 = parseInt(input1.value);
             var inputval2 = parseInt(input2.value);
             var inputval3 = parseInt(input3.value);
-
+            //eval(inputval1 + inputval2 +var inputval3)가능
             switch(inputval2){
                 case 1:
                     text1.value= inputval1 + inputval3;

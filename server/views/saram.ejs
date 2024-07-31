@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3><%= message_data %></h3>
+     <h1>
+        saram page
+     </h1>
+     <table width =" 100%" border="1">
+        <tr>
+            <th>번호</th>
+            <th>성명</th>
+            <th>이메일</th>
+            <th>직업</th>
+        </tr>
+        <% 
+        saramList.forEach(function(saram){
+        %>
+        <tr>
+            <th><%= saram.no%></th>
+            <th><a href="/saram/detail?no=<%= saram.no %>"><%= saram.name %></a></th>
+            <th><%= saram.email%></th>
+            <th><%= saram.job%></th>
+        </tr>
+        <%
+        })
+        %>
+     </table>
+</body>
+</html>

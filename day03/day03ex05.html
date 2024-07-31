@@ -5,22 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script>
-        var loadTodolist =JSON.parse( localStorage.getItem("todoList"));
-        console.log(loadTodolist);
-        var todoList =[];
-        var seqCnt =0;
-        console.log(loadTodolist? 1:0);
-        if(loadTodolist){
-            todoList=loadTodolist;
-            seqCnt = (todoList[0] ? todoList[todoList.length-1].seq+1 : 0);
-        }else{
+        //var loadTodolist=JSON.parse( localStorage.getItem("todoList"));
+        //console.log(loadTodolist);
+        var todoList =JSON.parse( localStorage.getItem("todoList"));
+
+        //console.log(loadTodolist[0]? 1:0);
+        if( !todoList[0]){
             todoList=[
                 {seq:0, title:"여행", done:false},
                 {seq:1, title:"여행가기", done:true},
                 {seq:2, title:"식사", done:false},
                 {seq:3, title:"청소", done:false},
-            ];
-            seqCnt =4;
+            ]       
         }
 
         window.onload = function(){
@@ -109,6 +105,7 @@
                 }else{
                     todoList = window.todoList;
                     localStorage.setItem("todoList",JSON.stringify(todoList));
+                    
                 }
                 todoList.forEach(function(todoObj){
                     memo.innerHTML += `<tr align="center" data-seq="${todoObj.seq}">
@@ -122,10 +119,10 @@
             }
             drawList();
             //
-
             //목록추가
             var handleEvent = function(){
-                todoList.push({seq:seqCnt++,title: inputBox.value, done:false});
+                
+                todoList.push({seq:todoList[0] ? todoList[todoList.length-1].seq+1: 0 ,title: inputBox.value, done:false});
                 drawList();
                 inputBox.value ="";
                 inputBox.focus();
@@ -140,7 +137,7 @@
 
             //검색 함수들
             function searchList(e){
-                demo.innerHTML=" ";
+                demo.innerHTML="";
                 var newtodoLists=[];
                 todoList.forEach(function(todoObj){
                     if(search.value == todoObj.title || search.value == ""){
@@ -148,6 +145,8 @@
                     }
                 })
                 drawList(newtodoLists);
+                search.value="";
+                search.focus();
             }
             searchBth.addEventListener('click',searchList);
             search.addEventListener('keyup',function(event){
@@ -156,8 +155,7 @@
                 }
             })
             //
-
-
+            
              //목록 추가 입력칸 초기화
             resetBtn.addEventListener('click',function(event){
                 inputBox.value="";

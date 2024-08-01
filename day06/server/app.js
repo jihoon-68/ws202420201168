@@ -64,18 +64,30 @@ var noSeq = 106;
 // FETCH - 부분수정
 // ... 그 외
 
-//  검색
-app.get("/todo/search", (req, res) => {
-  var keyword = req.query.keyword;
+//  검색 상세보기 통합됨
+/*app.get("/todo/search", (req, res) => {
+  var keyword = req.query.title;
+  console.log(req.query);
   var newTodoList = todoList.filter((todo) => {
-    return todo.title.findIndex(keyword) != -1;
+    console.log(todo.title);
+    console.log(keyword);
+    console.log((todo.title != keyword) != 1);
+
+    return (todo.title != keyword) != 1 || keyword == "";
   });
-  res.send(newTodoList);
-});
+  console.log(newTodoList);
+
+  req.app.render("todo", { todoList: newTodoList }, function (err, html) {
+    res.end(html);
+  });
+});*/
+
+//검색이랑 상세보기 or 전체보기 합쳐도 될듯
+// 검색은 타이트만 왔어 첫번째 if문 false 들뜻
 
 //  상세보기 or 전체보기
 app.get("/todo", (req, res) => {
-  //console.log(req.query);
+  console.log(req.query);
   if (req.query.no) {
     var no = req.query.no;
     var idx = todoList.findIndex((t) => {
@@ -96,6 +108,20 @@ app.get("/todo", (req, res) => {
       res.send(null);
     }
     return;
+  } else if (req.query.title) {
+    console.log(1);
+    var keyword = req.query.title;
+    var newTodoList = todoList.filter((todo) => {
+      //console.log(todo.title);
+      //console.log(keyword);
+      //console.log((todo.title != keyword) != 1);
+      return (todo.title != keyword) != 1 || keyword == "";
+    });
+    req.app.render("todo", { todoList: newTodoList }, function (err, html) {
+      res.end(html);
+    });
+    return;
+    //console.log(newTodoList);
   }
   //console.log(3);
 

@@ -7,10 +7,15 @@
 </head>
 <body>
     <h3>일정 정보</h3>
-     <h1>
+    <h1>
         todo page
-     </h1>
-     <table width =" 100%" border="1">
+    </h1>
+    <form action="/todo" method="get">
+      <input type="text" name="title" value="">
+      <button type="submit">검색</button>
+    </form>
+    <hr>
+    <table width =" 100%" border="1">
         <tr>
             <th>번호</th>
             <th>메세지</th>
@@ -25,12 +30,12 @@
         <%
         })
         %>
-     </table>
-     <hr>
+    </table>
+    <hr>
         <h3 style="margin: 0;">일정 작성</h3>
-     <form action="/todo/input" method="post">
+    <form action="/todo/input" method="post">
         <input type="text" name="title" value="">
         <button type="submit">등록</button>
-     </form>
+    </form>
 </body>
 </html>

@@ -6,9 +6,9 @@
     <title>Document</title>
 </head>
 <body>
-    <h3>사람 정보</h3>
+    <h3>일정 정보</h3>
      <h1>
-        saram page
+        todo page
      </h1>
      <table width =" 100%" border="1">
         <tr>
@@ -19,12 +19,18 @@
         todoList.forEach(function(todo){
         %>
         <tr>
-            <th><a href="/todo?no=<%= todo.no%>"><%= todo.no%></a></th>
+            <th><a href="/todo?no=<%= todo.no %>"><%= todo.no %></a></th>
             <th><%= todo.title %></a></th>
         </tr>
         <%
         })
         %>
      </table>
+     <hr>
+        <h3 style="margin: 0;">일정 작성</h3>
+     <form action="/todo/input" method="post">
+        <input type="text" name="title" value="">
+        <button type="submit">등록</button>
+     </form>
 </body>
 </html>

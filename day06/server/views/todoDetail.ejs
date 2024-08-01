@@ -6,11 +6,11 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>사람 정보 상세 보기</h1>
+    <h1>일정 정보 상세 보기</h1>
     번호: <%= todo.no %><br>
     내용: <%= todo.title %><br>
     <hr>
-    <a href="">수정</a>
-    <a href="">삭제</a>
+    <a href="/todo/edit?no=<%= todo.no %>">수정</a>
+    <a href="/todo/deleteck?no=<%= todo.no %>">삭제</a>
 </body>
 </html>

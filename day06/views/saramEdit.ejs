@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>사람 정보 수정</h1>
+    <form action="/saram/update" method="get">
+        <input type="hidden" name="no" value="<%=saram.no %>">
+        성명: <input type="text" name="name" value="<%=saram.name %>"><br>
+        이메일: <input type="email" name="email" value="<%=saram.email %>"><br>
+        직업: <input type="text" name="job" value="<%=saram.job %>"><br>
+        나이: <input type="number" name="age" value="<%=saram.age %>"><br>
+        <input type="submit" value="수정">
+    </form>
+</body>
+</html>

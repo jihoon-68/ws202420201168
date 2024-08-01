@@ -60,14 +60,42 @@ const todoList = [
 // FETCH - 부분수정
 // ... 그 외
 
+//처음 정보 상세정보
 app.get('/todo', (req, res) => {
+    
+    if(req.query.no){
+        var no = req.query.on;
+        var idx = todoList.findIndex((t)=>{
+            return t.no == no;
+        });
+        if(idx){
+            req.app.render('todo',{todoList}, function(err,html){
+                res.send(todoList[idx]);
+                res.end(html);
+            });
+            console.log(1);
+        }else{
+            res.send(null);
+            console.log(2)
+        }
+        return;
+    }
+    console.log(3)
+    req.app.render('todo',{todoList}, function(err, html){
+        res.end(html);
+    });
+    
+});
+//검색
+app.post('/todo/search', (req, res) => {
+    var keyword = req.query.keyword;
+    var newTodoList = todoList.filter((todo)=>{
+        return todo.title.findlndex(keyword) != -1;
+    });
     res.send(todoList);
 });
 
-app.post('/todo', (req, res) => {
-    res.send(todoList);
-});
-
+//수정
 app.put('/todo', (req, res) => {
     res.send(todoList);
 });

@@ -18,19 +18,7 @@ app.use(bodyParser.json());
 app.use(methodOverride("_method"));
 
 app.get("/", (req, res) => {
-  // redirect() 지정 된 URL로 자동으로 페이지 이동
-  // res.redirect('http://naver.com');
-
-  // end() 문자열을 화면에 출력한다.
-  //res.writeHead(200, {"Content-Type":"text/html; charset=UTF-8"});
-  //res.end("안영 세계");
-  res.end('{"hello":"world"}');
-
-  var obj = { no: 120, name: "HONG" };
-  //res.end(JSON.stringify(obj) );
-  // send()는 수식 or 문자열을 화면에 보여 준다.
-  // writeHead()는 생략.
-  //res.send(obj);
+  res.redirect("/todo")
 });
 
 // localhost:3000/data/hong/love  ==> get('/data/:user/:message)
@@ -56,31 +44,6 @@ const todoList = [
 
 var noSeq = 106;
 
-// AJAX를 REST 방식으로 처리 (HTML 폼은 GET과 POST만 가능)
-// GET - 출력, 검색
-// POST - 입력
-// PUT - 수정
-// DELETE - 삭제
-// FETCH - 부분수정
-// ... 그 외
-
-//  검색 상세보기 통합됨
-/*app.get("/todo/search", (req, res) => {
-  var keyword = req.query.title;
-  console.log(req.query);
-  var newTodoList = todoList.filter((todo) => {
-    console.log(todo.title);
-    console.log(keyword);
-    console.log((todo.title != keyword) != 1);
-
-    return (todo.title != keyword) != 1 || keyword == "";
-  });
-  console.log(newTodoList);
-
-  req.app.render("todo", { todoList: newTodoList }, function (err, html) {
-    res.end(html);
-  });
-});*/
 
 //검색이랑 상세보기 or 전체보기 합쳐도 될듯
 // 검색은 타이트만 왔어 첫번째 if문 false 들뜻

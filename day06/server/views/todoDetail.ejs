@@ -4,13 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
     <h1>일정 정보 상세 보기</h1>
     번호: <%= todo.no %><br>
     내용: <%= todo.title %><br>
     <hr>
-    <a href="/todo/edit?no=<%= todo.no %>">수정</a>
-    <a href="/todo/deleteck?no=<%= todo.no %>">삭제</a>
+    <button id = "edit" >수정</button>
+    <button id = "delet" > 삭제</button>
+    
+
+    <script>
+      /*
+      //<a id = "edit" href="/todo/edit?no=<%= todo.no %>">수정</a>
+    //<a id = "delet" href="/todo/deleteck?no=<%= todo.no %>">삭제</a>
+      */
+      $("#edit").click(function (){
+        $.ajax({
+          url: "/todo/edit?no=<%= todo.no %>",
+          method: "GET",
+          success: function(data){
+            console.log(data);
+          },
+          error: function(data){
+            console.log(data);
+          }
+        })
+      })
+      $("#delet").click(function (){
+        $.ajax({
+          url: "/todo/deleteck?no=<%= todo.no %>",
+          method: "GET",
+          success: function(data){
+            console.log(data);
+          }
+        })
+      })
+    </script>
 </body>
 </html>
+

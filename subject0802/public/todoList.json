@@ -1,0 +1,23 @@
+[
+    {    "sep":1001,
+        "img":"http://www.hanbit.co.kr/images/common/logo_hanbit.png",
+        "name":"홀길동",
+        "department":"개발",
+        "rank":"부장",
+        "ckBox":false
+    },{
+        
+        "sep":1002,
+        "img":"http://www.hanbit.co.kr/images/common/logo_hanbit.png",
+        "name":"배승환",
+        "department":"기획",
+        "rank":"실장",
+        "ckBox":false
+    
+    }
+
+]
+
+
+
+

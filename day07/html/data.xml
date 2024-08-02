@@ -1,0 +1,6 @@
+<dir>
+    <h2>Hello Ajax world</h2>
+    <h3>XMLHttpRequest 객체에 의해서 불러들여진 내용</h3>
+    <p>Ajax는 비동기 방식으로 데이터를 로드합니다.</p>
+    <p>text, xml, json 등의 형식을 불러와서 가공할 수 있다.</p>
+</dir>

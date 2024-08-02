@@ -1,0 +1,40 @@
+
+<html lang="en">
+<head>
+</head>
+<body>
+  <script>
+    const xhr = new XMLHttpRequest();
+    //console.dir(xhr);
+
+    xhr.onreadystatechange = function (event) {
+      if(xhr.status === 200 && xhr.readyState == 4){
+        //요청 결과가 모두 로두되면 실행 (noload 동일)
+        //console.log("readyState: ", xhr.readyState);
+        //console.log("status: " , xhr.status);
+        //console.log(xhr.responseXML);
+
+        /*var dom = xhr.responseXML;
+        console.log(dom.querySelectorAll("P")[0]);
+        console.log(xhr.responseType);*/
+        var todoListTxt = xhr.responseText;
+        //console.log(JSON.parse(todoListTxt));
+        var todoList =JSON.parse(todoListTxt)['todoLists'];
+        var noCnt =JSON.parse(todoListTxt)['noCnt'];
+
+        console.log(todoList);
+        console.log(noCnt);
+
+      }
+    }
+    var method ="GET";
+    var url="todoList.json";  
+
+    xhr.open(method, url);
+5
+    xhr.send();
+  </script>
+
+  
+</body>
+</html>

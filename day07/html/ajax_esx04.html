@@ -1,0 +1,42 @@
+
+<html lang="en">
+<head>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+  <h1>Todo List</h1>
+  <button type="button" id="loadBnt">목록 불러오기</button>
+  <ul id="todoListArea"></ul>
+
+
+  <script>
+    const xhr = new XMLHttpRequest();
+    const myAjax = function(method, url,callback) {
+    xhr.onload = callback;
+    xhr.open(method, url);
+    xhr.send();
+  }
+  
+  document.querySelector("#loadBnt").addEventListener('click', function (){
+    // 실습: axios 또는 fetch로 변경 해보기  
+    
+    $.ajax({
+        method: "GET",
+        url: "http://localhost:3000/todo", 
+        success: function(data, status, xhr){
+          var xhr =event.target;
+          console.log(data);
+          var todoList = data;
+        
+          const todoListArea = document.querySelector('#todoListArea');
+          todoList.forEach(todo => {
+              const liElement = document.createElement("li");
+              liElement.innerHTML = todo.title;
+              todoListArea.appendChild(liElement);
+          });
+      }});
+    });
+      
+  </script>
+</body>
+</html>

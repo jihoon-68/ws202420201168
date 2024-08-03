@@ -40,65 +40,255 @@
       //2.서버에서 요청을 받음
       //3.서버에서 요청처 후 ajax에 반환
       //4.ajax는 성공과 에러 따라 함수 실행
-      $(document).ready($.ajax({
-        url:"http://localhost:3000/data",
-        method:"GET",
-        data:"JSON",
-        success(data){
-          const memberList =data.memberList;
-          const noCnt = data.noCnt;
-          memberList.forEach(member => {
-            //일단은 여기에서 테이블생성
-            console.log(member);
-            //밑에 있는 명령어로 첫번째 tr만들고 두번째 rt만들때 넝어 보기
-            member.commentList.forEach(comment =>{
-              console.log(comment);
-            })
-          });
-          console.log(memberList,noCnt);
-        },error(data){
-          console.log("통신 실패");
-        }
-      }))
+      $(document).ready(function(){
+        function drawing(){
+          $.ajax({
+          url:"http://localhost:3000/data",
+          type:"GET",
+          dataType:"JSON",
+          success(data){
+            const memberList =data.memberListdata;
+            const noCnt = data.noCnt;
+            let memberstr = "";
+            memberList.forEach(member => {
+              var commentstr= "";
+              member.commentList.forEach(comment =>{
+                commentstr +=
+                `
+                  <tr data-seq="${member.seq}">
+                    <td>${comment.seq}</td>
+                    <td>${comment.comment}</td>
+                    <td>${comment.name}</td>
+                    <td><button type="button" onclick="modify(this)">수정</button></td>
+                    <td><button type="button" onclick="listDelete(this)">삭제</button></td>
+                  <tr>
+                `;
+              });
+  
+              memberstr +=`
+                <tr data-seq="${member.seq}">
+                  <td rowspan="2"><input type="checkbox" ${member.ckBox?"checked":""}></td>
+                  <td rowspan="2">${member.seq}</td>
+                  <td><img src="" width="300" height="200"></td>
+                  <td>${member.name}</td>
+                  <td>${member.department}</td>
+                  <td>${member.rank}</td>
+                  <td rowspan="2"><button onclick="modify(this)">수정</button></td>
+                  <td rowspan="2"><button onclick="listDelete(this)">삭제</button></td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <table with="100%" class="subtbl">
+                            <tbody>
+                                <tr>
+                                    <td>번호</td>
+                                    <td>댓글 내용</td>
+                                    <td>작성자</td>
+                                    <td>수정</td>
+                                    <td>삭제</td>
+                                </tr>
+                            </tbody>
+                            <tbody>
+                            ${commentstr}
+                            </tbody>
+                            <tbody>
+                                <tr data-seq="${member.seq}">
+                                    <td colspan="5" data-seq="">
+                                      <form>
+                                        댓글
+                                        <input type="text" value="입력창1" style="width: 50%; margin: 5px; ">
+                                        작성자
+                                        <input type="text" value="입력창2" style="width: 50px;">
+                                        <input type="button" value="댓글입력" onclick="addcommen(this)">
+                                      <form>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+              `;
+            });
+            $("#comment").html(memberstr);
+          },error(data){
+            console.log("통신 실패");
+          }
+        });
+      };
+      drawing();
 
+      //큰표 생성,수정,삭제,검색 함수들
+
+      //큰표 목록 추가 함수
+      $("#submitBtn").click(function(){
+        var formData1 = $("#formData").serialize();
+        //console.log(formData1);
+        $.ajax({
+          type:"POST",
+          url:'http://localhost:3000/input',
+          data:formData1,
+          success: function(data){
+            drawing();
+          },
+          error: function(data){
+            console.log("실패");
+          }
+        })
+    });
+
+    //큰표 수정 함수
+    HTMLButtonElement.prototype.modify = function(memberListdata){
+      var trElement = memberListdata.parentElement.parentElement
+      var seq = trElement.dataset.seq;
+      var cells = trElement.cells;
+      
+      
+      //console.log(trElement.cells.length);
+      //console.log(trElement.cells[3]);
+      //console.log(trElement.cells[4]);
+      //console.log(trElement.cells[5]);
+
+      if(cells.length == 8){
+        for (let index = 3; index < 6; index++) {
+          var text=cells[index].childNodes[0].data;
+          cells[index].innerHTML=`<td><input id="input${+index}"type="text" value="${text}"></td>`;
+        }
+        cells[6].innerHTML=`<td rowspan="2"><button id="modifyBtn" >수정완료</button></td>`;
+        $('#modifyBtn').click(function(){
+          var name = document.getElementById('input3').value;
+          var department = document.getElementById('input4').value;
+          var rank = document.getElementById('input5').value;
+          
+          $.ajax({
+            type:"PUT",
+            url:"http://localhost:3000/modify",
+            data:{seq,name,department,rank},
+            success: function(data){
+              drawing();
+            },
+            error: function(data){
+              console.log("실패");
+            }
+          })
+        })
+
+      }else if(cells.length== 5){
+        var text=cells[1].childNodes[0].data;
+        var commentseq=cells[0].childNodes[0].data;
+        cells[1].innerHTML=`<td><input id="input1"type="text" value="${text}"></td>`;
+        cells[3].innerHTML=`<td rowspan="2"><button id="cModifyBtn" >수정완료</button></td>`;
+        $('#cModifyBtn').click(function(){
+          console.log(commentseq)
+          //var name = document.getElementById('input2').value;
+          var comment = document.getElementById('input1').value;
+          $.ajax({
+            type:"PUT",
+            url:"http://localhost:3000/modify",
+            data:{seq,comment,commentseq},
+            success: function(data){
+              drawing();
+            },
+            error: function(data){
+              console.log("실패");
+            }
+          })
+        })
+      }
+    }
+
+
+    //큰표삭제 함수
+    HTMLButtonElement.prototype.listDelete = function(memberListdata){
+      var trElement=memberListdata.parentElement.parentElement;
+      var seq =trElement.dataset.seq;
+      var commentseq=trElement.cells[0].childNodes[0].data;
+      console.log(seq,commentseq);
+      $.ajax({
+        type:"DELETE",
+        url:"http://localhost:3000/delete",
+        data: {seq,commentseq},
+        success: function(data){
+          drawing();
+        },
+        error: function(data){
+          console.log("실패");
+        }
+      })
+    }
+
+
+    //작은 표 추가,삭제,수정
+
+    //작은 표 추가 함수
+    HTMLInputElement.prototype.addcommen=function(commen){
+      var trElement = commen.parentElement.parentElement
+      var seq =trElement.dataset.seq;
+      //var input1 = trElement.childNodes[1][0].value;
+      var input2 = trElement.childNodes[1][1];
+      console.log(trElement.childNodes[1][1].value);
+      
+      $.ajax({
+        type:"POST",
+        url:'http://localhost:3000/input',
+        data:{},
+        success: function(data){
+          drawing();
+        },
+        error: function(data){
+          console.log("실패");
+        }
+      })
+      
+
+    }
+
+    //작은 표 삭제 함수 큰 표쪽에 통합 됨
+
+    //작은 표 수정 함수 표쪽에 통합 됨
+
+  });
     </script>
 </head>
 <body>
-    <form action="#">
-        이름<input id="nameIput" type="text" value="홍길동"><br>
-        부서<input id="departmentIput"type="text" value="개발"><br>
-        직책<input id="rankIput" type="text" value="대리"><br>
+    <form id="formData" >
+        이름<input name="nameIput" type="text" value=""><br>
+        부서<input name="departmentIput"type="text" value=""><br>
+        직책<input name="rankIput" type="text" value=""><br>
         사진<button type="button" id="imgIputBtn">파일 선택</button> 선택된 파일 없음<br>
         <br>
-        <button id="submitBtn" type="submit"  style="border: 0; border-radius: 5px; background-color: rgb(211, 51, 51); color: white; width: 100px; height: 30px;">새 사원 추가</button>
+        <button id="submitBtn" type="button" style="border: 0; border-radius: 5px; background-color: rgb(211, 51, 51); color: white; width: 100px; height: 30px;">새 사원 추가</button>
     </form>
 
     <hr>
 
-    <form action="#">
+    <form id ="form2">
         <input type="button" value="선택 삭제"> 
         | 검색: 
-        <select name="1" id="1">
+        <select name="1">
             <option value="name">이름</option>
             <option value="department">부서</option>
             <option value="position">직책</option>
         </select>
-        <input type="text">
-        <table class="madListTbl" id="table">
-          <thead>
-            <tr style="background-color:orange">
-                <th><input type="checkbox"></th>
-                <th>번호</th>
-                <th>사진</th>
-                <th>사원명</th>
-                <th>부서</th>
-                <th>직급</th>
-                <th>수정</th>
-                <th>삭제</th>
-            </tr>
-          </thead>
-        </table>
+        <input name="search" type="text">
     </form>
+    <table class="madListTbl" >
+      <thead>
+        <tr style="background-color:orange">
+            <th><input type="checkbox"></th>
+            <th>번호</th>
+            <th>사진</th>
+            <th>사원명</th>
+            <th>부서</th>
+            <th>직급</th>
+            <th>수정</th>
+            <th>삭제</th>
+        </tr>
+      </thead>
+      <tbody id="comment">
+        
+      </tbody>
+      
+    </table>
     
 </body>
 </html>

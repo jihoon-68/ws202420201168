@@ -57,11 +57,13 @@
                 if(idx != -1) {
                     var modifyBox = trElement.querySelector(".modifyBox");
                     var titleBox = trElement.querySelector(".titleBox");
+
                     modifyBox.style.display = "block";
                     titleBox.style.display = "none";
-                    var modifyTxt = trElement.querySelector(".modifyTxt");
-                    modifyTxt.value = todoList[idx].title;
 
+                    var modifyTxt = trElement.querySelector(".modifyTxt");
+
+                    modifyTxt.value = todoList[idx].title;
                     trElement.querySelector(".modifyBtn").onclick = function(event) {
                         modifyBox.style.display = "none";
                         todoList[idx].title =  modifyTxt.value;

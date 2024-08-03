@@ -1,0 +1,48 @@
+{
+  "ListName":"memberList",
+  "memberList":
+  [
+    {
+      "sep":1001,
+      "img":"http://www.hanbit.co.kr/images/common/logo_hanbit.png",
+      "name":"홀길동",
+      "department":"개발",
+      "rank":"부장",
+      "ckBox":false,
+      "commentList":
+      [
+        {
+          "sep": 1,
+          "comment":"확인",
+          "name":"박지훈"
+        },
+        {
+          "sep": 2,
+          "comment":"확인",
+          "name":"감사"
+        }
+      ]
+    },
+    {
+      "sep":1002,
+      "img":"http://www.hanbit.co.kr/images/common/logo_hanbit.png",
+      "name":"배승환",
+      "department":"기획",
+      "rank":"실장",
+      "ckBox":false,
+      "commentList":
+      [
+        {
+          "sep": 1,
+          "comment":"확인",
+          "name":"감사"
+        },
+        {
+          "sep": 2,
+          "comment":"확인",
+          "name":"박지훈"}
+      ]
+    }
+  ],
+  "noCnt": 15
+}

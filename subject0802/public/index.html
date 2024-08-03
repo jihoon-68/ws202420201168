@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="http://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        .madListTbl{
+            border: 1px solid black;
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .madListTbl tr th{
+            border: 1px solid black;
+        }
+        .madListTbl tr td{
+            border: 1px solid black;
+            text-align: center;
+            
+        }
+        .subtbl{
+            opacity: initial;
+            border: 0px solid black;
+            width: 97%;
+            border-collapse: collapse;
+            margin: 10px 10px 10px 10px;
+        }
+        .subtbl tr td{
+            border: 0px solid black;
+            border-top: 1px solid black;
+            padding: 10px 0px;
+
+        }
+    </style>
+
+    <script>
+      //1.ajax에서 요청을 보냄
+      //2.서버에서 요청을 받음
+      //3.서버에서 요청처 후 ajax에 반환
+      //4.ajax는 성공과 에러 따라 함수 실행
+      $(document).ready($.ajax({
+        url:"http://localhost:3000/data",
+        method:"GET",
+        data:"JSON",
+        success(data){
+          const memberList =data.memberList;
+          const noCnt = data.noCnt;
+          memberList.forEach(member => {
+            //일단은 여기에서 테이블생성
+            console.log(member);
+            //밑에 있는 명령어로 첫번째 tr만들고 두번째 rt만들때 넝어 보기
+            member.commentList.forEach(comment =>{
+              console.log(comment);
+            })
+          });
+          console.log(memberList,noCnt);
+        },error(data){
+          console.log("통신 실패");
+        }
+      }))
+
+    </script>
+</head>
+<body>
+    <form action="#">
+        이름<input id="nameIput" type="text" value="홍길동"><br>
+        부서<input id="departmentIput"type="text" value="개발"><br>
+        직책<input id="rankIput" type="text" value="대리"><br>
+        사진<button type="button" id="imgIputBtn">파일 선택</button> 선택된 파일 없음<br>
+        <br>
+        <button id="submitBtn" type="submit"  style="border: 0; border-radius: 5px; background-color: rgb(211, 51, 51); color: white; width: 100px; height: 30px;">새 사원 추가</button>
+    </form>
+
+    <hr>
+
+    <form action="#">
+        <input type="button" value="선택 삭제"> 
+        | 검색: 
+        <select name="1" id="1">
+            <option value="name">이름</option>
+            <option value="department">부서</option>
+            <option value="position">직책</option>
+        </select>
+        <input type="text">
+        <table class="madListTbl" id="table">
+          <thead>
+            <tr style="background-color:orange">
+                <th><input type="checkbox"></th>
+                <th>번호</th>
+                <th>사진</th>
+                <th>사원명</th>
+                <th>부서</th>
+                <th>직급</th>
+                <th>수정</th>
+                <th>삭제</th>
+            </tr>
+          </thead>
+        </table>
+    </form>
+    
+</body>
+</html>

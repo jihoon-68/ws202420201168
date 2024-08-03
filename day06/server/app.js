@@ -3,7 +3,6 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const methodOverride = require("method-override");
-// npm i -S body-parser
 const bodyParser = require("body-parser");
 
 app.set("views", path.join(__dirname, "views"));
@@ -18,7 +17,7 @@ app.use(bodyParser.json());
 app.use(methodOverride("_method"));
 
 app.get("/", (req, res) => {
-  res.redirect("/todo")
+  res.redirect("/todo");
 });
 
 // localhost:3000/data/hong/love  ==> get('/data/:user/:message)
@@ -43,12 +42,6 @@ const todoList = [
 ];
 
 var noSeq = 106;
-
-
-//검색이랑 상세보기 or 전체보기 합쳐도 될듯
-// 검색은 타이트만 왔어 첫번째 if문 false 들뜻
-
-//  상세보기 or 전체보기
 app.get("/todo", (req, res) => {
   console.log(req.query);
   if (req.query.no) {
@@ -56,10 +49,7 @@ app.get("/todo", (req, res) => {
     var idx = todoList.findIndex((t) => {
       return t.no == no;
     });
-    //console.log(idx);
     if (idx != -1) {
-      //console.log(1);
-      //console.log(todo);
       req.app.render(
         "todoDetail",
         { todo: todoList[idx] },
@@ -75,20 +65,14 @@ app.get("/todo", (req, res) => {
     console.log(1);
     var keyword = req.query.title;
     var newTodoList = todoList.filter((todo) => {
-      //console.log(todo.title);
-      //console.log(keyword);
-      //console.log((todo.title != keyword) != 1);
       return (todo.title != keyword) != 1 || keyword == "";
     });
     req.app.render("todo", { todoList: newTodoList }, function (err, html) {
       res.end(html);
     });
     return;
-    //console.log(newTodoList);
   }
-  //console.log(3);
 
-  //res.send(todoList);
   req.app.render("todo", { todoList }, function (err, html) {
     res.end(html);
   });
@@ -108,20 +92,17 @@ app.get("/todo/edit", (req, res) => {
     return t.no == no;
   });
   if (idx != -1) {
-    //console.log({ todo: todoList[idx] });
     req.app.render("todoEdit", { todo: todoList[idx] }, function (err, html) {
       res.end(html);
     });
     return;
   }
-  //console.log(no);
   res.send("정보 불러오기 오류가 있습니다");
 });
 // 수정
 app.put("/todo/updat/:no", (req, res) => {
   console.log(1);
   var todo = req.body;
-  //console.dir(todo);
   var idx = todoList.findIndex((t) => {
     return t.no == todo.no;
   });
@@ -146,13 +127,11 @@ app.get("/todo/deleteck", (req, res) => {
     return t.no == no;
   });
   if (idx != -1) {
-    //console.log({ todo: todoList[idx] });
     req.app.render("todoDelete", { todo: todoList[idx] }, function (err, html) {
       res.end(html);
     });
     return;
   }
-  //console.log(no);
   res.send("정보 불러오기 오류가 있습니다");
 });
 

@@ -27,11 +27,15 @@ app.get("/", (req, res) => {
 //초기 서버에서 데이터 보내기
 app.get("/data", (req, res) => {
   data = req.query;
-  console.log(data);
+  //console.log(data);
   if (Object.keys(data).length === 0) {
     res.send({ memberListdata });
   } else if (Object.keys(data).length !== 0) {
-    res.send(data);
+    var index = memberListdata.findIndex((member) => {
+      return member.seq == data.memberListdata[0].seq;
+    });
+    //console.log(index);
+    res.send({ memberListdata: [memberListdata[index]] });
   }
 });
 

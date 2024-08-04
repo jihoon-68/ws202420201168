@@ -152,12 +152,17 @@
       //console.log(trElement.cells[4]);
       //console.log(trElement.cells[5]);
 
+      // if문으로 큰표 수정 인지 작은 수정인지 판별!
       if(cells.length == 8){
         for (let index = 3; index < 6; index++) {
+          //수정이 가능한 사원병, 부서, 직급에 input칸으로 변경
           var text=cells[index].childNodes[0].data;
           cells[index].innerHTML=`<td><input id="input${+index}"type="text" value="${text}"></td>`;
         }
+        //기존 수정 버튼 온클릭 하고 수정완료로 변경
         cells[6].innerHTML=`<td rowspan="2"><button id="modifyBtn" >수정완료</button></td>`;
+        
+        //큰은표 수정 온클릭 함수&서버요청
         $('#modifyBtn').click(function(){
           var name = document.getElementById('input3').value;
           var department = document.getElementById('input4').value;
@@ -166,6 +171,7 @@
           $.ajax({
             type:"PUT",
             url:"http://localhost:3000/modify",
+            //식별코드 ,변경된이름, 변경된부서,변경된직급,
             data:{seq,name,department,rank},
             success: function(data){
               drawing();
@@ -177,17 +183,28 @@
         })
 
       }else if(cells.length== 5){
+        //작은 표에 수정가능한 댓글에 input만들어주기
         var text=cells[1].childNodes[0].data;
         var commentseq=cells[0].childNodes[0].data;
         cells[1].innerHTML=`<td><input id="input1"type="text" value="${text}"></td>`;
+        
+        //큰표에서 똑같이 수정버튼 재활용
         cells[3].innerHTML=`<td rowspan="2"><button id="cModifyBtn" >수정완료</button></td>`;
+        
+
+        //작은표 수정 온클릭 함수&서버요청
         $('#cModifyBtn').click(function(){
           console.log(commentseq)
+          //댓글만 변경 가능 하게 이름 쪽 인풋 받아오는 변수 주석처리함
+          // 주석만 치우면 이름도 변경가능
           //var name = document.getElementById('input2').value;
           var comment = document.getElementById('input1').value;
+
           $.ajax({
             type:"PUT",
             url:"http://localhost:3000/modify",
+            //데이터는 작은표 식별을 위한 seq 두번째는 댓글내용
+            //세번째는 특정 댓글 수정를 위한 댓글 seq
             data:{seq,comment,commentseq},
             success: function(data){
               drawing();

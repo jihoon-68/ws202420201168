@@ -12,7 +12,7 @@ app.set("view engine", "ejs");
 app.set("port", 3000);
 
 app.use(express.static("public"));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
 
@@ -26,24 +26,44 @@ app.get("/", (req, res) => {
 
 //초기 서버에서 데이터 보내기
 app.get("/data", (req, res) => {
-  res.send({ memberListdata });
+  data = req.query;
+  console.log(data);
+  if (Object.keys(data).length === 0) {
+    res.send({ memberListdata });
+  } else if (Object.keys(data).length !== 0) {
+    res.send(data);
+  }
 });
 
 //입력 함수
 app.post("/input", (req, res) => {
   var saram = req.body;
-  var length = Object.keys(saram).length;
-  console.log(length);
-  memberListdata.push({
-    seq: noCnt++,
-    img: " ",
-    name: saram.nameIput,
-    department: saram.departmentIput,
-    rank: saram.rankIput,
-    ckBox: false,
-    commentList: [],
+  //console.log(saram);
+  //var length = Object.keys(saram).length;
+  var idex = memberListdata.findIndex((member) => {
+    return member.seq == saram.seq;
   });
-  console.log(memberListdata);
+  //console.log(length, idex, saram.seq, memberListdata[idex].commertnoCnt);
+  if (idex == -1) {
+    //console.log(2);
+    memberListdata.push({
+      seq: noCnt++,
+      img: " ",
+      name: saram.nameIput,
+      department: saram.departmentIput,
+      rank: saram.rankIput,
+      ckBox: false,
+      commentList: [],
+      commertnoCnt: 1,
+    });
+    //console.log(memberListdata);
+  } else if (idex != -1) {
+    memberListdata[idex].commentList.push({
+      seq: memberListdata[idex].commertnoCnt++,
+      comment: saram.comment,
+      name: saram.name,
+    });
+  }
   res.send(req.body);
 });
 
@@ -105,8 +125,26 @@ app.delete("/delete", (req, res) => {
     res.send("success");
   } else if (idex != -1 && commentidex != -1) {
     memberListdata[idex].commentList.splice(commentidex, 1);
+    memberListdata[idex].commertnoCnt -= 1;
     res.send("success");
   }
+});
+
+//검색 함수
+app.get("/search", (req, res) => {
+  var keywode = req.query;
+  //console.log(keywode.select, keywode.searchIput);
+  const newmemberListdata = memberListdata.filter((member) => {
+    switch (keywode.select) {
+      case "name":
+        return member.name == keywode.searchIput;
+      case "department":
+        return member.department == keywode.searchIput;
+      case "rank":
+        return member.rank == keywode.searchIput;
+    }
+  });
+  res.send({ memberListdata: newmemberListdata });
 });
 
 const server = http.createServer(app);

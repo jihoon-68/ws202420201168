@@ -40,14 +40,18 @@
       //2.서버에서 요청을 받음
       //3.서버에서 요청처 후 ajax에 반환
       //4.ajax는 성공과 에러 따라 함수 실행
-      $(document).ready(function(){
-        function drawing(){
+    $(document).ready(function(){
+        //초기에 표그려주는 함수 + 매게주면 검섹 가능
+      function drawing(listData){
+          //console.log(listData);
           $.ajax({
           url:"http://localhost:3000/data",
           type:"GET",
-          dataType:"JSON",
+          data:listData,
           success(data){
+            console.log(data);
             const memberList =data.memberListdata;
+            console.log(memberList);
             const noCnt = data.noCnt;
             let memberstr = "";
             memberList.forEach(member => {
@@ -76,7 +80,7 @@
                   <td rowspan="2"><button onclick="modify(this)">수정</button></td>
                   <td rowspan="2"><button onclick="listDelete(this)">삭제</button></td>
                 </tr>
-                <tr>
+                <tr data-seq="${member.seq}">
                     <td colspan="4">
                         <table with="100%" class="subtbl">
                             <tbody>
@@ -92,15 +96,15 @@
                             ${commentstr}
                             </tbody>
                             <tbody>
-                                <tr data-seq="${member.seq}">
-                                    <td colspan="5" data-seq="">
+                                <tr>
+                                    <td colspan="5" data-seq="${member.seq}">
                                       <form>
                                         댓글
-                                        <input type="text" value="입력창1" style="width: 50%; margin: 5px; ">
+                                        <input type="text" value="" style="width: 50%; margin: 5px; ">
                                         작성자
-                                        <input type="text" value="입력창2" style="width: 50px;">
-                                        <input type="button" value="댓글입력" onclick="addcommen(this)">
-                                      <form>
+                                        <input type="text" value="" style="width: 50px;">
+                                        <button type="button" onclick="addcommen(this)">댓글입력</button>
+                                      </form>
                                     </td>
                                 </tr>
                             </tbody>
@@ -117,9 +121,9 @@
       };
       drawing();
 
-      //큰표 생성,수정,삭제,검색 함수들
+    //큰표 생성,수정,삭제,검색 함수들
 
-      //큰표 목록 추가 함수
+    //큰표 목록 추가 함수
       $("#submitBtn").click(function(){
         var formData1 = $("#formData").serialize();
         //console.log(formData1);
@@ -137,7 +141,7 @@
     });
 
     //큰표 수정 함수
-    HTMLButtonElement.prototype.modify = function(memberListdata){
+      HTMLButtonElement.prototype.modify = function(memberListdata){
       var trElement = memberListdata.parentElement.parentElement
       var seq = trElement.dataset.seq;
       var cells = trElement.cells;
@@ -198,7 +202,7 @@
 
 
     //큰표삭제 함수
-    HTMLButtonElement.prototype.listDelete = function(memberListdata){
+      HTMLButtonElement.prototype.listDelete = function(memberListdata){
       var trElement=memberListdata.parentElement.parentElement;
       var seq =trElement.dataset.seq;
       var commentseq=trElement.cells[0].childNodes[0].data;
@@ -216,28 +220,44 @@
       })
     }
 
+    //큰표검색
+      $('#searchBnt').click(function(){
+        var formData1 = $("#searchform").serialize();
+        $.ajax({
+          type:"GET",
+          url:"http://localhost:3000/search",
+          data: formData1,
+          dataType: "JSON",
+          success: function(data){
+            drawing(data);
+            //console.log(data);
+          },
+          error: function(daat){
+            console.log(1);
+          }
+        })
+      })
 
     //작은 표 추가,삭제,수정
 
     //작은 표 추가 함수
-    HTMLInputElement.prototype.addcommen=function(commen){
+      HTMLButtonElement.prototype.addcommen = function(commen){
       var trElement = commen.parentElement.parentElement
       var seq =trElement.dataset.seq;
-      //var input1 = trElement.childNodes[1][0].value;
-      var input2 = trElement.childNodes[1][1];
-      console.log(trElement.childNodes[1][1].value);
-      
+      var comment = trElement.childNodes[1][0].value;
+      var name =trElement.childNodes[1][1].value;
+      console.log(seq,comment,name)
       $.ajax({
         type:"POST",
         url:'http://localhost:3000/input',
-        data:{},
+        data:{seq,comment,name},
         success: function(data){
           drawing();
         },
         error: function(data){
           console.log("실패");
         }
-      })
+      });
       
 
     }
@@ -261,15 +281,16 @@
 
     <hr>
 
-    <form id ="form2">
+    <form id ="searchform">
         <input type="button" value="선택 삭제"> 
         | 검색: 
-        <select name="1">
+        <select name="select">
             <option value="name">이름</option>
             <option value="department">부서</option>
-            <option value="position">직책</option>
+            <option value="rank">직책</option>
         </select>
-        <input name="search" type="text">
+        <input name="searchIput" type="text">
+        <button id="searchBnt" type="button" >검색</button>
     </form>
     <table class="madListTbl" >
       <thead>

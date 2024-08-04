@@ -11,17 +11,9 @@
       "ckBox":false,
       "commentList":
       [
-        {
-          "seq": 1,
-          "comment":"확인",
-          "name":"박지훈"
-        },
-        {
-          "seq": 2,
-          "comment":"확인",
-          "name":"감사"
-        }
-      ]
+        {"seq":1,"name":"배승환","comment":"asdasd"}
+      ],
+      "commertnoCnt": 1
     },
     {
       "seq":1002,
@@ -32,16 +24,9 @@
       "ckBox":false,
       "commentList":
       [
-        {
-          "seq": 1,
-          "comment":"확인",
-          "name":"감사"
-        },
-        {
-          "seq": 2,
-          "comment":"확인",
-          "name":"박지훈"}
-      ]
+        {"seq":1,"name":"배승환","comment":"asdasd"}
+      ],
+      "commertnoCnt": 1
     }
   ],
   "noCnt": 15

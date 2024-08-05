@@ -50,9 +50,14 @@
                     let choiceNum = Number(e.target.innerText);
                     
                     if(choiceNum == num){
-                        status1.innerHTML =`결과:성공`;
+                        min = 1;
+                        max = 100;
+                        num = getRandInt(min, max);
+                        cnt =5;
+                        status1.innerHTML =`결과:성공`;      
+                        draw();
                         return;
-                    }else if(cnt==0){
+                    }else if(cnt==-1){
                         min = 1;
                         max = 100;
                         num = getRandInt(min, max);

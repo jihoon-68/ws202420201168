@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Document</title>
+</head>
+<body>
+		<script>
+			var a_user ="user";
+			let a_name ="ㄱ미김동"
+			console.dir(window)
+			console.dir(document)
+			
+
+			var adimn01 ="1";
+			var adimn02	="2";
+			var adimn03	="3";
+			var adimn04	="4";
+
+			console.log("adimn01", adimn01);
+			console.log(window.adimn02);
+			console.log(this.adimn03);
+			console.log("asdasd"+this[adimn04]);
+			console.log("asdad"+this['adimn03'+1])
+
+			for(var i; i<=4; i++){
+				//`이안에 ${}이걸로 변수 추가 가능`
+				console.log(window['adimn0'+i]);
+			}
+
+
+			function aasd(){
+				var aaaa=5;
+				console.log(window)
+			}
+			aasd();
+
+
+			class mycls{
+				fn01(){
+					//객쳄의 맴버 변수를 선언 하기 위해 this. 사용
+					//window.도 가능
+					this.aclsName= "마이클레스"
+					console.log("this",this);
+				}
+			}
+			let my = new mycls();
+			my.fn01(); 
+
+			
+		</script>
+</body>
+</html>

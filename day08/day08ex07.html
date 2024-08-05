@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+
+    <div id="div">
+
+    </div>
+
+    <script>
+        
+        
+        
+        let rendom = getRand(1,10);
+        console.log(rendom)
+        console.dir(box)
+
+
+        function getRand(min, max){
+            return Math.floor(Math.random() * (max - min+1)) + min;
+        }
+        var box = document.getElementById('div');
+        var fail =5;
+        var inf
+        function eventt (e){
+            console.log(rendom,fail)
+            if(e==rendom){
+                alert("성공");
+            }else if(e == -1){
+                alert("실패")
+            }
+            else{
+                fail--;
+                alert(`기회:${fail}`);
+
+            }
+
+                
+            console.log(e)
+        }
+        for( var i=1; i<=100;i++){
+            box.innerHTML += `<button onclick="eventt(${i})">${i}</button>`;
+
+        }
+        
+
+        
+
+    </script>
+    
+</body>
+</html>

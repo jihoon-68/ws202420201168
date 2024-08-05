@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>나이와 요일 입력</h1>
+    <form name="inputForm">
+        * 나이 입력: <input type="number" name="age" value="0"><br>
+        * 요일 선택: <select name="dayOfWeek">
+            <option value="1">일</option>
+            <option value="2">월</option>
+            <option value="3">화</option>
+            <option value="4">수</option>
+            <option value="5">목</option>
+            <option value="6">금</option>
+            <option value="7">토</option>
+        </select><br>
+        <input type="submit" value="선택 결과 출력 하기"></input>
+    </form>
+    <hr>
+    <div id="resultBox">결과: ?세는 성인입니다. 오늘은 ?요일입니다.</div>
+
+<script>
+    //var form = document.querySelector("form[name=inputForm]");
+    let form = document.forms[0]; // Old한 방식으로 비추천
+    let resultBox = document.querySelector("#resultBox"); // CSS 선택기를 그대로 사용 가능.
+    
+    form.onsubmit = (e) => {
+        // 각자 구현 실습
+        e.preventDefault();
+        console.dir(document.querySelector("form[name=inputForm]"));
+        console.dir(e.target.dayOfWeek);
+        var select =e.target.dayOfWeek;
+        console.log(select[1].childNodes[0].data);
+       
+        console.log(select);
+
+        
+    }
+</script>
+</body>
+</html>

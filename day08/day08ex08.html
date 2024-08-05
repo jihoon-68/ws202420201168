@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <p>다음에서 시스템이 만든 숫자를 선택하세요.</p>
+    <p id="status1">결과: </p>
+    <p id="status2">기회: </p>
+    <div id="btns"></div>
+    
+    <script>
+        // 1보다 작은 난수 발생
+        // parseInt() 문자열로 된 숫자를 숫자로 변환 "55" ==> 55
+        // Numeric 문자열을 숫자로 변환
+        // Math.floor()는 적삭 기능(실수를 정수로 변환)
+        // 55 ~ 100 사이의 난수 발생
+        function getRandInt(min, max) {
+            return min + Math.floor( Math.random() * (max-min+1) );
+        }
+        
+        // 높다 낮다 게임
+        // 시스템이 1 ~ 100 사이의 정수를 무작위로 선택한다.
+        // 사용자가 5회 시도 안에 정수를 맞추는 게임
+
+        let min = 1;
+        let max = 100;
+        let num = getRandInt(min, max);
+        let cnt = 5;
+        console.log("Random number =>", num);
+
+        let btns = document.querySelector("#btns");
+        let status1 = document.querySelector("#status1");
+        let status2 = document.querySelector("#status2");
+
+        function draw() {
+            // 반복문 실행 전 요소를 초기화 해야한다.
+            btns.innerHTML = "";
+            for(let i=min; i<=max; i++) {
+                let newBtn = document.createElement("button");
+                newBtn.innerText = i;
+                btns.appendChild(newBtn);
+
+                newBtn.onclick = function(e) {
+                    cnt--;
+                    let choiceNum = Number(e.target.innerText);
+                    if(choiceNum ==num && cnt>-1){
+                        status1.innerHTML=`결과:성공`;
+                        return;
+                    }else if(cnt ==0){
+                        status1.innerHTML=`결과:게임을 다시 시작합니다.`;
+                        min = 1;
+                        max = 100;
+                        num = getRandInt(min, max);
+                        cnt =5       
+                        draw()
+                    }
+                    console.log(choiceNum);
+                    // 정답인지 아닌지 체크.
+                    // choiceNum과 num의 크기를 비교 해서 변수의 값을 변경하기
+                    if(choiceNum> num){
+                        max= choiceNum;
+                        status1.innerHTML=`결과:작은`;
+                        status2.innerHTML=`기회:${cnt}`;
+                    }else{
+                        min = choiceNum + 1;
+                        status1.innerHTML=`결과:큰`;
+                        status2.innerHTML=`기회:${cnt}`;
+                    }
+
+                    
+                    
+                    // 함수가 함수 자신을 재귀호출 
+                    draw();
+                }
+            }
+        }
+
+        draw();
+    </script>
+</body>
+</html>

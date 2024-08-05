@@ -48,28 +48,30 @@
                 newBtn.onclick = function(e) {
                     cnt--;
                     let choiceNum = Number(e.target.innerText);
-                    if(choiceNum ==num && cnt>-1){
-                        status1.innerHTML=`결과:성공`;
+                    
+                    if(choiceNum == num){
+                        status1.innerHTML =`결과:성공`;
                         return;
-                    }else if(cnt ==0){
-                        status1.innerHTML=`결과:게임을 다시 시작합니다.`;
+                    }else if(cnt==0){
                         min = 1;
                         max = 100;
                         num = getRandInt(min, max);
-                        cnt =5       
-                        draw()
+                        cnt =5;      
+                        status1.innerHTML=`결과:게임을 다시 시작합니다.`;
+                        draw();
+                        return;
                     }
                     console.log(choiceNum);
                     // 정답인지 아닌지 체크.
                     // choiceNum과 num의 크기를 비교 해서 변수의 값을 변경하기
                     if(choiceNum> num){
                         max= choiceNum;
-                        status1.innerHTML=`결과:작은`;
-                        status2.innerHTML=`기회:${cnt}`;
+                        status1.innerHTML =`결과:작은`;
+                        status2.innerHTML =`기회:${cnt}`;
                     }else{
                         min = choiceNum + 1;
-                        status1.innerHTML=`결과:큰`;
-                        status2.innerHTML=`기회:${cnt}`;
+                        status1.innerHTML =`결과:큰`;
+                        status2.innerHTML =`기회:${cnt}`;
                     }
 
                     

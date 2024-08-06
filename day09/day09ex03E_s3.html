@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        function Animal(name, sound){
+            this.name =name;
+            this.sound= sound;
+        }
+        Animal.prototype.mksound= function(){
+            console.log(`${this.name}이(가)${this.sound}소리를 내며 운다`);
+        };
+
+        function cat(name, sound,age){
+            Animal.call(this, name , sound);
+            this.age =age
+        }
+        cat.prototype =Object.create(Animal.prototype);
+        cat.prototype.constructor = cat;
+
+        cat.prototype.mksound = function(){
+            Animal.prototype.mksound.call(this);
+            console.log(this.age);
+        }
+        new cat("해피","스-껄룩",12).mksound();
+        
+
+    </script>
+
+
+
+
+
+
+
+    
+</body>
+</html>

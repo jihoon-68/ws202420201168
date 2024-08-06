@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box{
+            border: 5px solid navy;
+            width: 300px;
+            height: 300px;
+
+            
+        }
+        .newBox{
+            position: relative;
+            left: 0px;
+            top: 0px;
+            display: block;
+            float: left;
+            box-sizing: border-box;
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+            overflow: hidden;
+
+        }
+        .newBox ul{
+            display: block;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            border: 1px solid red;
+            padding: 0;
+            margin: 0;
+        }
+        .newBox ul li{
+            border: 1px solid orange;
+            width: 100px;
+            height: 100px;
+            list-style: none;
+            text-align: center;
+            line-height: 100px;
+            box-sizing: border-box;
+
+        }
+    </style>
+</head>
+<body>
+    <button id ="statBtn">멈춤</button><button id="syopBtn">시작</button>
+    <div id="box">
+        
+
+    </div>
+    <script>
+        //const divBox =document.querySelector("#box");
+        function Box() {
+
+        }
+        Box.prototype = Object.create(HTMLDivElement.prototype);
+        Box.prototype.constructor =Box;
+        Box.prototype.init = function(text){
+            this.newBox = document.createElement("Box");
+            this.elementUl = document.createElement("ul");
+            for(var i=0; i<10; i++) {
+                this.elementLi = document.createElement("li");
+                this.elementLi.innerText = i;
+                this.elementUl.appendChild(this.elementLi);
+            }
+            this.newBox.appendChild(this.elementUl);
+            this.newBox.setAttribute("class", "newBox");
+            //this.start();
+            return this.newBox;
+
+        }
+        Box.prototype.start = function(speed) {
+            this.elementUl.style.position = "absolute";
+            this.elementUl.style.left = "0px";
+            this.elementUl.style.top = "0px";
+            this.y=0;
+            this.intervalRof = setInterval(()=>{
+                this.y-= 10;
+                console.log(this);
+                this.elementUl.style.top =this.y+"px";
+                if(this.y <= -900){
+                    this.y=0;
+                }
+                //clearInterval(this.intervalRof);
+            },speed);
+        }
+        Box.prototype.stop =function(){
+            clearInterval(this.intervalRof);
+            console.log(Math.floor(this.y/100)*100);
+            this.elementUl.style.top =Math.floor(this.y/100)*100+"px";
+        }
+
+        //const newBox =document.createElement("Box");
+        //const newBox = new Box.prototype.init("햄버거");
+        //console.log(newBox);
+
+        const divBox = document.querySelector("#box");
+        //const newBox = new Box().init("햄버거");
+
+        const boxArr=[
+            new Box(),new Box(),new Box(),
+            new Box(),new Box(),new Box(),
+            new Box(),new Box(),new Box()
+        ]
+        for(var i=0; i<boxArr.length; i++){
+            const newBox = new boxArr[i].init();
+            divBox.appendChild(newBox);
+        }
+        const statBtn= document.querySelector("#statBtn");
+        statBtn.addEventListener('click',function(e){
+            boxArr.forEach(function(box){
+                box.start(math.floor(10+ Math.random()*20));
+            })
+        });
+        stopBtn.addEventListener('click',function(e){
+            boxArr.forEach(function(box){
+                box.stop();
+            })
+        });
+    </script>
+</body>
+</html>

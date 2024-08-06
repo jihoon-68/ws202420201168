@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // ES6현재 클래스
+        
+        class a{
+            constructor(){
+                this.name ="값";
+                this.age ="값";
+            }
+        }
+
+        //과거
+        function Peple(){
+            this.name = "홍길동";
+            this.age =53;
+
+            function 함수(){
+                // 내부에 선언 하면 모든 객체에 소스가 복제 된다.
+                // 내부에 메서드를 선언한것은 비추
+                // prototype에 메서드 선언하는 것을 추천.
+            }
+
+        }
+        //이런 방법 추천
+        Peple.prototype.display = function(){
+            // 멤버 메서드에서 멥버 석성 전근하기 위해 this 필수
+            document.write(this.name, this.age);
+        }
+
+        const p1 =new Peple();
+    </script>
+</body>
+</html>

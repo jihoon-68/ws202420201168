@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box{
+            border: 5px solid navy;
+            width: 300px;
+            height: 300px;
+
+            
+        }
+        .newBox{
+            position: relative;
+            left: 0px;
+            top: 0px;
+            display: block;
+            float: left;
+            box-sizing: border-box;
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+            overflow: hidden;
+
+        }
+        .newBox ul{
+            display: block;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            border: 1px solid red;
+            padding: 0;
+            margin: 0;
+
+        }
+        .newBox ul li{
+            border: 1px solid orange;
+            width: 100px;
+            height: 100px;
+            list-style: none;
+            text-align: center;
+            line-height: 100px;
+            box-sizing: border-box;
+
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+
+    </div>
+    <script>
+        //const divBox =document.querySelector("#box");
+        function Box() {
+
+        }
+        Box.prototype = Object.create(HTMLDivElement.prototype);
+        Box.prototype.constructor =Box;
+        Box.prototype.init =function(text){
+            const newBox = document.createElement("Box");
+            const elementUl =document.createElement("ul");
+
+            for(var i= 0; i < 9; i++){
+                console.log()
+                const elementLi =document.createElement("li");
+                elementLi.innerText = i ;
+                elementUl.appendChild(elementLi);
+                console.log(elementUl);
+            }
+            newBox.appendChild(elementUl);
+            newBox.setAttribute("class","newBox");
+            return newBox;
+        }
+        //const newBox =document.createElement("Box");
+        //const newBox = new Box.prototype.init("햄버거");
+        //console.log(newBox);
+
+        const divBox = document.querySelector("#box");
+        const newBox = new Box.prototype.init("햄버거");
+        divBox.appendChild(newBox);
+    </script>
+</body>
+</html>

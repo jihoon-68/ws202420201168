@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<script>
+    // 옛날 방식의 클래스 선언(function 생성자 만들기)
+    function People(name, age) {
+        this.name = name;
+        this.age = age;
+
+        function showInfo() {
+            // 내부에 선언 하면 모든 객체에 소스가 복제된다.
+            // 내부에 메서드를 선언한것은 비추
+            // prototype에 메서드 선언하는 것을 추천.
+        }
+    }
+    People.prototype.display = function() {
+        // 멤버 메서드에서 멤버 속성 접근하기 위해 this 필수.
+        console.log(this.name, this.age);
+    }
+
+    People.prototype.method2 = function() {
+        // 객체의 멤버를 호출 할때 this. 필수.
+        this.display();
+    }
+
+    const p1 = new People("이순신", 44);
+    //p1.display();
+    //p1.method2();
+
+    // People 상속 받아서 다른 클래스 선언
+    // 옛날 방식은 prototype을 이용한 상속
+    function Student(name, age, grade) {
+        this.name = name;
+        this.age = age;
+        this.grade = grade;
+    }
+    Student.prototype = new People();
+    Student.constructor = Student;
+
+    //부모 클레스를 상 속 받은 자식 클레스에서 
+    //부모클레스에 있는 함수를 재정의 할려면 
+    //부모 클레스를 먼저 호출 해야 한다.
+    Student.prototype.display = function() {
+        People.prototype.display.call(this);
+        console.log(this.age + "세")
+        console.log(this.grade + "학년");
+    }
+
+    const student1 = new Student("일지매", 22, 3);
+    student1.display();
+
+    // ES6 에서 클래스 선언
+    class 클래스명 {
+        constructor() {
+            this.속성1 = "값";
+            this.속성2 = "값";
+        }
+
+        fn01() {
+            // 메서드 선언
+        }
+    }
+</script>
+
+</body>
+</html>

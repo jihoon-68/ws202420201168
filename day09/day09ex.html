@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .okck{
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+<body>
+    <h1>오늘 할일</h1>
+    할일: <input type="text" id="input">
+    <button type="s" id="sumBtn">등록</button>
+    <ul id="todolistcont"></ul>
+
+
+   <script>
+        
+        var input = document.getElementById('input');
+        var todolistcont =document.getElementById('todolistcont');
+        var sumBtn =document.getElementById('sumBtn');
+        var noCnt =105;
+        const todolist =[
+            {no:101,title:"집가기",done:false},
+            {no:102,title:"집가기",done:false},
+            {no:103,title:"집가기",done:false},
+        ];
+        function findindex(todolist,todo){
+
+            var idx = todolist.findIndex(function(t){
+                return t.no == todo.no;
+            });
+            return idx;
+        }
+        function draw(){
+
+            var todolistcont =document.getElementById('todolistcont');
+            todolistcont.innerHTML= "";
+            todolist.forEach(function(todo){
+                var list = document.createElement("li");
+                var dleBtn = document.createElement("button");
+                var span = document.createElement("span");
+                var ckBox = document.createElement("input");
+                
+                list.style.listStyle ="none";
+                ckBox.setAttribute("type","checkbox");
+                
+                if(todo.done){
+                    span.setAttribute("class","okck");
+                    ckBox.setAttribute("checked","checked");
+                }
+                span.innerText = todo.title + " ";
+
+                dleBtn.innerText="delete";
+
+                list.appendChild(ckBox);
+                list.appendChild(span);
+                list.appendChild(dleBtn);
+                todolistcont.appendChild(list);
+                
+                ckBox.addEventListener('change',function(){
+                    var idx =findindex(todolist,todo);
+                    console.log(idx);
+                    if(idx != -1){
+                        todolist[idx].done = !todolist[idx].done;
+    
+                    }
+                    draw();
+                })
+
+                dleBtn.addEventListener('click',function(){
+                    var idx =findindex(todolist,todo);
+                    if(idx != -1){
+                        console.log(idx);
+                        todolist.splice(idx,1);
+                        draw();
+                    }
+                })
+            });
+            
+      
+        }
+        draw();
+
+
+        sumBtn.addEventListener('click', function(){
+            todolist.push({no:noCnt++,title:input.value,done:false});
+            draw();
+            input.value="";
+            input.focus();
+        })
+        input.addEventListener('keyup',function(kye){
+            
+            if(kye.keyCode ==13){
+                todolist.push({no:noCnt++,title:input.value,done:false});
+                draw();
+                input.value="";
+                input.focus();
+            }
+        })
+   </script>
+</body>
+</html>

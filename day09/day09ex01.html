@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>할 일 입력</h1>
+    <p>
+        할일: <input type="text" class="title">
+        <button id="saveBtn">SAVE</button>
+    </p>
+    <ul class="resultArea">
+    </ul>
+
+    <script>
+        var saveBtn = document.querySelector("#saveBtn");
+        var title = document.querySelector(".title");
+
+        function append() {
+            var listArea = document.querySelector(".resultArea");
+            listArea.innerHTML += `<li>${title.value}</li>`;
+            title.value = "";
+            title.focus();
+        }
+
+        saveBtn.onclick = function() {
+            append()
+        }
+
+        title.onkeydown = function(e) {
+            if(e.keyCode === 13) {
+                append();
+            }
+        }
+    </script>
+</body>
+</html>

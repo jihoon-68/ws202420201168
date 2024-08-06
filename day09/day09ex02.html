@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const even = (nums) =>{
+            console.log(nums);
+            return nums.filter((t)=>{return t%2 == 0; })
+        }
+        Array.prototype.oddNumber =function(){
+            console.log(this);
+            return this.filter((t)=>{ return t%2 == 1; })
+        }
+
+
+
+        var nums=[1,2,3,4,5,6,8,9,10];
+
+        var Even =even(nums);
+        console.log(Even);
+        var oddNumber =nums.oddNumber();
+        console.log(oddNumber);
+    </script>
+</body>
+</html>

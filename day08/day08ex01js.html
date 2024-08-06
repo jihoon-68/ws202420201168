@@ -31,8 +31,17 @@
 
 
 			function aasd(){
-				var aaaa=5;
-				console.log(window)
+				if(true){
+					const aaaa=5;
+					let ddd =1;
+					ddd =5;
+					console.log(ddd);
+					aaaa = 6;
+					console.log(aaaa);
+					console.log(ddd);
+				}
+				//블록 밖에서 접근 가능
+				console.log(aaaa);
 			}
 			aasd();
 

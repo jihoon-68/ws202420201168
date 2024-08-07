@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function example() {
+
+      if (true) {
+        var aaaaa = 5;
+      }
+    console.log(this.aaaaa); // 5, 블록 외부에서도 접근 가능
+  }
+  example();
+  console.dir(window.example);
+  </script>
+  
+</body>
+</html>

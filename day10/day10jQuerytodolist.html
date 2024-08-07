@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js""></script>
+    <style>
+        .edInput{
+            width: 100apx;
+        }
+    </style>
 </head>
 <body>
     <h1>Todo List</h1>
@@ -28,10 +33,22 @@
                         <button class="delBtn">DELETE</button>
                     </li>`);
                     $('button.delBtn').bind('click', function(e){
-                        //console.log(e.target.parentElement);
-                        console.log($(e.target).parent().find('span').text());
-                        console.log($(e.target).parent().data('no'));
+                        $(e.target).parent().remove();
                     });
+                    $('button.ediBtn').bind('click', function(e){
+            
+                        $(e.target).parent().find('span').before(
+                            `<span><input id='edinput'/><button id='edsevce'>seve</button></span>`
+                        );
+                        $('#edsevce').on('click',function(e){
+                            $(e.target).parent().parent().find('span').text($('#edinput').val());
+                            $(e.target).parent().remove();
+                        });
+                        $('button.ediBtn').off();
+
+                        console.log();
+                    });
+                    
                     $('#title').val("");
                 }else{
                     alert("내용을 입력");

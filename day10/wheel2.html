@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        img{
+          max-width: 100%;
+          max-height: 100%;
+          object-fit: contain;
+          
+        }
+        input{
+          width: 50px;
+        }
+        .wheelbox{
+          position: relative;
+          margin: 50px auto;
+          width: 500px;
+          height: 500px;
+        }
+        .wheel{
+            position: relative;
+            width: 500px;
+            height: 500px;
+            
+        }
+        .wheel ul{
+          position: relative;
+          margin: auto;
+          padding: 0;
+        }
+        .wheel ul li{
+          position: absolute;
+          width: 100px;
+          right:100px;
+        }
+
+        .wheel ul li:nth-child(1){
+          left: 100px;
+          top: 130px;
+        }.wheel ul li:nth-child(2){
+          right:100px;
+          top: 130px;
+        }.wheel ul li:nth-child(3){
+          left: 60px;
+          top: 350px;
+        }.wheel ul li:nth-child(4){
+          
+          right:150px;
+          top: 350px;
+        }
+        .item{
+            position: absolute;
+            
+        }
+        #arrow{
+          position: absolute;
+          z-index: 1;
+          top:0px;
+          width: 60px;
+          height: 40px;
+          left: 200px;
+        }
+    </style>
+</head>
+<body>
+    <h1>돌려 돌려 돌림판</h1>
+    <button id="stratBtn">시작</button><button id="stopBtu">멈춤</button>
+    <hr/>
+    <div id="wheelbox" class="wheelbox">
+          <img  id="arrow" src="img/arrow.png" alt="">
+    </div>
+    <hr/>
+    <button id="inputSubmit" >목록 등록</button>
+
+    <script>
+        function wheel(){}
+        wheel.prototype =Object.create(HTMLDivElement.prototype);
+        wheel.prototype.constructor = wheel;
+
+        
+
+        wheel.prototype.init = function(item){
+            //돌림판에 필요한 요서들 생성
+            this.Wheel = document.createElement('div');
+            this.elementUl = document.createElement('ul');
+            this.background =document.createElement('img');
+
+            //돌림판 배경 src 속성에 주소 등록
+            this.background.setAttribute('src','img/ItemSpace4.png');
+            //차트 에있는 동그라미 제거
+            this.elementUl.style.listStyle='none';
+
+            //li에 input 추가및 ul에 li 추가 하는 for문
+            for(var i =0; i<item; i++){
+                this.elementLi = document.createElement('li');
+                this.liInput = document.createElement('input');
+                this.liInput.setAttribute('type','text')
+                this.elementLi.appendChild(this.liInput);
+                this.elementUl.appendChild(this.elementLi);
+            }
+
+            //위치 조정을 위한 클래스 지정
+            this.background.setAttribute('class','item');
+            this.elementUl.setAttribute('class','item');
+            this.Wheel.appendChild(this.background);
+
+            //동림판에 추가
+            this.Wheel.appendChild(this.elementUl);
+            this.Wheel.setAttribute('class','wheel');
+            return this.Wheel;
+        }
+
+        wheel.prototype.strat = function(speed,r) {
+            //받은 매개변수 각도로 동기화하여 매끄럽게 돌아감
+            this.r = r;
+
+            this.intervalRef = setInterval(()=>{
+                //각도가 2.5도씩 증가함 +:오른쪽, -:왼쪽
+                this.r+=2.5;
+                this.Wheel.style.transform = `rotate(${this.r}deg)`;
+                //변수가 계속 커지는 것 방지
+                if(this.r%360==0){
+                    this.r=0;
+                }
+            },speed);
+            //이 리턴 값은 스톱을 했을 때 서서히 멈추고 싶어서 현재 각도 보냅니다
+            return this.r;
+        }
+
+        wheel.prototype.stop = function(){
+          clearInterval(this.intervalRef);
+          //console.log(this.r);
+          //원판이 멈춤 각도 전달
+          return this.r;     
+        }
+        
+        wheel.prototype.registration = function(){
+          //4개의 input칸에서 값 받아와서 각각 li에 넣기
+          for(var i = 0; i<4; i++){
+            this.value =this.elementUl.childNodes[i].childNodes[0].value;
+            this.elementUl.childNodes[i].innerHTML=`${this.value}`;
+          }
+        }
+
+        var divWheel = document.querySelector('#wheelbox');
+        const newheel = new wheel();
+        
+        divWheel.appendChild(newheel.init(4));
+
+        //const start = document.getElementById('stratBtn');
+
+        stratBtn.addEventListener('click',function(e){
+          //시작시  간격 시간와 기본위치
+          newheel.strat(5,0);
+        });
+        stopBtu.addEventListener('click',function(e){
+            //정지 함수 호출 후 this.time에 정지 각도 넣음
+            //setTimeout마다 this.time = newheel.stop(); 넣어줌
+            //안 멈추고 시작하면 계속 가속만 됨
+            //그리고 맨 막지 막은 정지 함수만 호출
+            setTimeout(() => {
+                this.time = newheel.stop();
+                newheel.strat(15,this.time);
+                
+            }, 3000);
+            setTimeout(() => {
+                this.time= newheel.stop();
+                newheel.strat(25,this.time);
+            }, 5000);
+            setTimeout(() => {
+                this.time= newheel.stop();
+                newheel.strat(35,this.time);
+            }, 8000);
+            setTimeout(() => {
+              this.time= newheel.stop();
+              newheel.strat(50,this.time);
+                
+            }, 12000);
+            setTimeout(() => {
+                newheel.stop();
+                
+            }, 15000);
+        });
+
+        inputSubmit.addEventListener('click',function(){
+          newheel.registration();
+        });
+    </script>
+</body>
+</html>

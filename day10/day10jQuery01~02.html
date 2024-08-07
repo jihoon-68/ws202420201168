@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box {
+            position: relative;
+            border: 5px solid navy;
+            width: 300px;
+            height: 300px;
+        }
+        .cellBox {
+            position: relative;
+            left: 0px;
+            top: 0px;
+            display: block;
+            float: left;
+            box-sizing: border-box;
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+            overflow: hidden;
+        }
+        .cellBox ul {
+            display: block;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            border: 0px solid red;
+            padding: 0;
+            margin: 0;
+        }
+        .cellBox ul li {
+            border: 1px solid orange;
+            width: 100px;
+            height: 100px;
+            list-style: none;
+            text-align: center;
+            line-height: 100px;
+            box-sizing: border-box;
+        }
+        #line1, #line7, #line8 {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+        }
+        #line2 {
+            position: absolute;
+            left: 0px;
+            top: 100px;
+        }
+        #line3 {
+            position: absolute;
+            left: 0px;
+            top: 200px;
+        }
+        #line4 {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+        }
+        #line5 {
+            position: absolute;
+            left: 100px;
+            top: 0px;
+        }
+        #line6 {
+            position: absolute;
+            left: 200px;
+            top: 0px;
+        }
+        #line1, #line2, #line3, #line4, #line5, #line6, #line7, #line8 {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>햄버거하우스 게임</h1>
+    <button id="startBtn">START</button><button id="stopBtn">STOP</button>
+    <hr>
+    <div id="box">
+        <div id="line1"><img src="images/confirm1.png"></div>
+        <div id="line2"><img src="images/confirm1.png"></div>
+        <div id="line3"><img src="images/confirm1.png"></div>
+        <div id="line4"><img src="images/confirm2.png"></div>
+        <div id="line5"><img src="images/confirm2.png"></div>
+        <div id="line6"><img src="images/confirm2.png"></div>
+        <div id="line7"><img src="images/confirm3.png"></div>
+        <div id="line8"><img src="images/confirm4.png"></div>
+    </div>
+
+<script>
+    function Box() { }
+    Box.prototype.init = function(text) {
+        this.cellBox = document.createElement("div");
+        this.elementUl = document.createElement("ul");
+        for(var i=0; i<10; i++) {
+            this.elementLi = document.createElement("li");
+            this.elementLi.innerText = i;
+            this.elementUl.appendChild(this.elementLi);
+        }
+        this.cellBox.appendChild(this.elementUl);
+        this.cellBox.setAttribute("class", "cellBox");
+        return this.cellBox;
+    }
+    Box.prototype.start = function(speed) {
+        this.y = 0;
+        this.intervalRef = setInterval(() => {
+            this.y -= 10;
+            this.elementUl.style.top = this.y + "px";
+            if(this.y <= -900) {
+                this.y = 0;
+            }
+        }, speed);
+    }
+    Box.prototype.stop = function() {
+        clearInterval(this.intervalRef);
+        this.yPos = Math.floor(this.y / 100)*100;
+        this.elementUl.style.top = this.yPos  + "px";
+    }
+
+    const divBox = document.querySelector("#box");
+    const boxArr = [
+        new Box(), new Box(), new Box(),
+        new Box(), new Box(), new Box(),
+        new Box(), new Box(), new Box()
+    ];
+    const metrixArr = [
+        [boxArr[0],boxArr[1],boxArr[2]],
+        [boxArr[3],boxArr[4],boxArr[5]],
+        [boxArr[6],boxArr[7],boxArr[8]]
+    ];
+    for(var i=0; i<9; i++) {
+        const newBox = boxArr[i].init();
+        divBox.appendChild(newBox);
+    }
+
+    const startBtn = document.querySelector("#startBtn");
+    const stopBtn = document.querySelector("#stopBtn");
+    startBtn.addEventListener('click', function(event) {
+        boxArr.forEach(function(box){
+            box.start(Math.floor(5 + Math.random()*20));
+        });
+        document.querySelector('#line1').style.display = "none";
+        document.querySelector('#line2').style.display = "none";
+        document.querySelector('#line3').style.display = "none";
+        document.querySelector('#line4').style.display = "none";
+        document.querySelector('#line5').style.display = "none";
+        document.querySelector('#line6').style.display = "none";
+        document.querySelector('#line7').style.display = "none";
+        document.querySelector('#line8').style.display = "none";
+});
+    stopBtn.addEventListener('click', function(event) {
+        metrixArr[0][0].stop();
+        metrixArr[0][1].stop();
+        metrixArr[0][2].stop();
+        setTimeout(function() {
+            metrixArr[1][0].stop();
+            metrixArr[1][1].stop();
+            metrixArr[1][2].stop();
+        }, 500);
+        setTimeout(function() {
+            metrixArr[2][0].stop();
+            metrixArr[2][1].stop();
+            metrixArr[2][2].stop();
+        }, 1000);
+        setTimeout(function() {
+            console.log(metrixArr[0][0].yPos, metrixArr[0][1].yPos, metrixArr[0][2].yPos)
+            if(metrixArr[0][0].yPos == metrixArr[0][1].yPos && metrixArr[0][1].yPos == metrixArr[0][2].yPos) {
+                console.log("1행 맞춤...");
+                document.querySelector('#line1').style.display = "block";
+            }
+            if(metrixArr[1][0].yPos == metrixArr[1][1].yPos && metrixArr[1][1].yPos== metrixArr[1][2].yPos) {
+                document.querySelector('#line2').style.display = "block";
+            }
+            if(metrixArr[2][0].yPos == metrixArr[2][1].yPos && metrixArr[2][1].yPos== metrixArr[2][2].yPos) {
+                document.querySelector('#line3').style.display = "block";
+            }
+            if(metrixArr[0][0].yPos == metrixArr[1][0].yPos && metrixArr[1][0].yPos == metrixArr[2][0].yPos) {
+                document.querySelector('#line4').style.display = "block";
+            }
+            if(metrixArr[0][1].yPos == metrixArr[1][1].yPos && metrixArr[1][1].yPos == metrixArr[2][1].yPos) {
+                document.querySelector('#line5').style.display = "block";
+            }
+            if(metrixArr[0][2].yPos == metrixArr[1][2].yPos && metrixArr[1][2].yPos == metrixArr[2][2].yPos) {
+                document.querySelector('#line6').style.display = "block";
+            }
+            if(metrixArr[2][0].yPos == metrixArr[1][1].yPos && metrixArr[1][1].yPos == metrixArr[0][2].yPos) {
+                document.querySelector('#line8').style.display = "block";
+            }
+            if(metrixArr[0][0].yPos == metrixArr[1][1].yPos && metrixArr[1][1].yPos == metrixArr[2][2].yPos) {
+                document.querySelector('#line7').style.display = "block";
+            }
+        }, 1500);
+    });
+</script>
+</body>
+</html>

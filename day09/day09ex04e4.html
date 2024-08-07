@@ -66,6 +66,8 @@
         //this.start();
         return this.newBox;
     }
+
+    
     Box.prototype.start = function(speed) {
         // console.log("speed: ", speed)
         this.elementUl.style.position = "absolute";
@@ -83,6 +85,7 @@
             }
         }, speed);
     }
+
     Box.prototype.stop = function() {
         clearInterval(this.intervalRef);
         console.log(Math.floor(this.y / 100)*100);

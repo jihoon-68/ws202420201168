@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js""></script>
+</head>
+<body>
+    <h1>Todo List</h1>
+    <input type="text" id="title"/>
+    <button id ="seveBtn">seve</button>
+    <hr/>
+    <ul id="listAear"></ul>
+    
+
+    <script>
+        //오늘 과제 제이쿼로 todlist 만들기
+        var cnt=1;
+        $(function(){
+            $('#seveBtn').on('click',function(){
+                $('#title').val();
+                if($('#title').val()){
+                    $('#listAear').append(`<li data-no="10${cnt++}">
+                        <input type ="checkbox"/>
+                        <span>${$('#title').val()}</span>
+                        <button class="ediBtn">EDIT</button>
+                        <button class="delBtn">DELETE</button>
+                    </li>`);
+                    $('button.delBtn').bind('click', function(e){
+                        //console.log(e.target.parentElement);
+                        console.log($(e.target).parent().find('span').text());
+                        console.log($(e.target).parent().data('no'));
+                    });
+                    $('#title').val("");
+                }else{
+                    alert("내용을 입력");
+                    $('#title').focus();
+                    return;
+                }
+
+            })
+        })
+    </script>
+    
+</body>
+</html>

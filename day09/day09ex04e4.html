@@ -8,17 +8,17 @@
         #box {
             border: 5px solid navy;
             width: 300px;
-            height: 300px;
+            height: 450px;
+
         }
         .newBox {
             position: relative;
             left: 0px;
             top: 0px;
-            display: block;
             float: left;
             box-sizing: border-box;
             width: 100px;
-            height: 100px;
+            height: 150px;
             border: 1px solid black;
             overflow: hidden;
         }
@@ -40,30 +40,62 @@
             line-height: 100px;
             box-sizing: border-box;
         }
+        .button{
+            float: left;
+            width: 100px;
+            height: 50px;
+            top: 100px;
+
+            position: absolute;
+        }
     </style>
 </head>
 <body>
-    <h1>햄버거하우스 게임</h1>
-    <button id="startBtn">START</button><button id="stopBtn">STOP</button>
+    <h1>룰렛</h1>
+    <button id="startBtn">시작</button>
+    <button id="stopBtn">한번에 스탑</button>
     <hr>
     <div id="box"></div>
 
+    
+
 <script>
-    // 자신감과 성취감이 일을 하게 한다.
+    // 자신감과 성취감이 일을 하게 한다.                  기본
+    //로또번호 1~45
+    //그리고 버튼 6번호 +보너스 번 1 개의 버튼을 민들고
+    // 번호에 맞는 버튼을 누르면 멈추는 식으로 제작
+    //완료
+
+    //인단은 번호를 리스트로 민들고 이미 나온              변경 1
+    //
+
+    //아니면 스탑버튼을 누르면 함수에 딜레이를 줘어        변경 2
+    //일정한 시간 간격으로 멈추게하기
+
     function Box() { }
     Box.prototype = Object.create(HTMLDivElement.prototype);
     Box.prototype.constructor = Box;
     Box.prototype.init = function(text) {
         this.newBox = document.createElement("Box");
         this.elementUl = document.createElement("ul");
-        for(var i=0; i<10; i++) {
+        this.stopBtn =document.createElement("button");
+        for(var i=0; i<9; i++) {
             this.elementLi = document.createElement("li");
             this.elementLi.innerText = i;
             this.elementUl.appendChild(this.elementLi);
         }
+
         this.newBox.appendChild(this.elementUl);
+        //this.stopBtn.setAttribute("value","스탑");
+        this.stopBtn.setAttribute("class","button");
+        this.stopBtn.innerText= "스탑";
+        //this.stopBtn.setAttribute("type","button");
+        this.newBox.appendChild(this.stopBtn);
         this.newBox.setAttribute("class", "newBox");
-        //this.start();
+        
+        this.stopBtn.addEventListener('click',()=>{
+            this.stop();
+        })
         return this.newBox;
     }
     Box.prototype.start = function(speed) {
@@ -107,7 +139,7 @@
     const startBtn = document.querySelector("#startBtn");
     startBtn.addEventListener('click', function(event) {
         boxArr.forEach(function(box){
-            box.start(Math.floor(5 + Math.random()*20));
+            box.start(Math.floor(1 + Math.random()*15));
         })
     });
     stopBtn.addEventListener('click', function(event) {
@@ -115,6 +147,7 @@
             box.stop();
         })
     });
+    console.dir(document.body.childNodes[8]);
 </script>
 </body>
 </html>

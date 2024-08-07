@@ -33,14 +33,22 @@
                         <button class="delBtn">DELETE</button>
                     </li>`);
                     $('button.delBtn').bind('click', function(e){
+                        //현재요소의 부모로 가서 .remove();로 삭제합니다.
                         $(e.target).parent().remove();
                     });
+
                     $('button.ediBtn').bind('click', function(e){
-            
+                        //버튼 클릭 시 현재 요소 부모로 가서 span 태그 찾아서
+                        //befor 함수로 span 태그 앞쪽에 input 창과 버튼을 넣어줍니다.
+                        //넣어줄 때 input와 버튼에 이름 부여
                         $(e.target).parent().find('span').before(
                             `<span><input id='edinput'/><button id='edsevce'>seve</button></span>`
                         );
+
+                        //부한 이름에 버트이 눌러지면 밑에 함수 실행
                         $('#edsevce').on('click',function(e){
+                            //이 함수가 실행되면 현재 요소에 부모 부모를 불러 외 span을 찾은 후에
+                            // text() 안에 input 값을 넣고 다음 함수는 현재 요소 부모로 가서 삭제
                             $(e.target).parent().parent().find('span').text($('#edinput').val());
                             $(e.target).parent().remove();
                         });

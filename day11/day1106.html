@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <title>Document</title>
+    <style>
+        .box{
+            position: relative;
+            height: 100px;
+            width: 100px;
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+    <script>
+        $('.box').mousedown(function(e){
+            console.log(e.clientX,e.clientY);
+            $('.box').data('gepY',gepY =e.clientX - $('.box').offset().left)
+            $('.box').data('gepX',gepX =e.clientX - $('.box').offset().top)
+            
+            $(window).mousemove(function(ev){
+                console.log(ev.clientX,ev.clientY);
+                $('.box').css({
+                    left:ev.clientX-  $('.box').data('gepY') + "px",
+                    top:ev.clientY-  $('.box').data('gepX')+ "px"
+                })
+            })
+            $(window).on('mouseup',function(eve){
+                $(window).off('mousemove');
+            })
+        })
+    </script>
+    
+</body>
+</html>

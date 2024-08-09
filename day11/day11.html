@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery에 많이 사용되는 메서드들</title>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <!-- script가 body 태그 위에 있으면 $(document).ready()같은 진입점 필요. -->
+    <!-- jQuery에서 사용 할 스타일을 미리 정의 해 둔다 -->
+    <style>
+        li.redColor {
+            color: red;
+            text-decoration: underline;
+            font-size: 24pt;
+            font-weight: 900;
+            background-color: aqua;
+        }
+    </style>
+</head>
+<body>
+
+    <div>
+        <h1 class="headding">Hello world</h1>
+        <div class="navi">Home | Profile | Gallery</div>
+    </div>
+    <hr>
+    <div>
+        <button id="transKorBtn">한글로 변환</button>
+        <button id="toggleTodoList">목록 토글</button>
+        <hr>
+        <button id="addClassBtn">클래스 적용</button>
+        <button id="removeClassBtn">클래스 제거</button>
+        <button id="toggleClassBtn">토글 클래스</button>
+    </div>
+    <div>
+        제목: <input type="text" class="todoTitle">
+        <hr>
+        <ul class="todoList">
+            <li>코딩 하기</li>
+            <li>청소 하기</li>
+            <li>밥 하기</li>
+        </ul>
+    </div>
+
+<!-- 
+- **`text()`** 메서드를 사용하여 요소의 텍스트 내용을 변경 (`innerText` 속성)
+- **`html()`** 메서드를 사용하여 요소의 HTML 내용을 변경 (`innerHTML` 속성)
+- **`attr()`** 메서드를 사용하여 요소의 속성 값을 가져오거나 설정 (`setAttribute()` 메서드)
+- **`val()`** 메서들 이용해서 input 요소의 값을 가져오거나 설정 (`value` 속성)
+- **`css()`** 메서드를 사용해서 요소의 스타일을 설정하거나 값을 가져온다(style 속성)
+-->
+<script>
+    // head태그 아래에 있어도 jQuery진입점을 쓰는것이 좋다.
+    // ready()는 DOM 트리의 구조만 로드되어도 바로 실행 됨.
+    jQuery(document).ready(function() {
+        
+        // **`on()`** 메서드를 사용하여 이벤트를 등록
+        // 또는 **`bind()`** 메서드를 사용하여 이벤트를 등록
+        // **`click()`**, **`change()`**, **`keydown()`** 등
+        //$('#transKorBtn').on('click', function(event) {
+        //$('#transKorBtn').bind('click', function(event) {
+        $('#transKorBtn').click(function(event) {
+            // alert('Hello jQuery world');
+            // setter로 사용
+            $('.headding').text('안녕 세계');
+            // getter로 사용
+            console.log( $('.headding').text() );
+
+            $('.navi').html(`
+                <a href="">홈</a> | 
+                <a href="">갤러리</a> | 
+                <a href="">프로필</a>`
+            );
+        });
+
+        $('.todoTitle').change((event) => {
+            // ${} : 템플릿 문자열 (바닐라 자바스크립트에서도 사용)
+            // $(요소) : jQuery 선택기
+            var newTitle = $(event.target).val();
+            $('.todoList').append(`<li>${ newTitle }</li>`);
+            // input 초기화 및 포커스 (메서드 체인)
+            $(event.target).val("").focus();
+        });
+
+        $('#toggleTodoList').click(function() {
+            $(".todoList").toggle('slow'); // slow, fast, 300
+        });
+
+        // 클래스 적용 메서드 연습 
+        $('#addClassBtn').click(function(event) {
+            $('.todoList li').addClass('redColor');
+        });
+        $('#removeClassBtn').click(function(event) {
+            $('.todoList li').removeClass('redColor');
+        });
+        $('#toggleClassBtn').click(function(event) {
+            $('.todoList li').toggleClass('redColor');
+        });
+    });
+</script>
+</body>
+</html>

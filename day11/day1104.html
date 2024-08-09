@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Method Chaining Example</title>
+  <!-- jQuery 라이브러리 로드 -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <h2>Method Chaining Example</h2>
+  <p>This is a paragraph.</p>
+  <button id="btn">Change Style</button>
+
+  <script>
+    // jQuery를 사용하여 버튼 클릭 이벤트 처리
+    $(document).ready(function() {
+      // 버튼 클릭 이벤트 핸들러
+      $('#btn').click(function() {
+        // p 요소를 선택하여 메서드 체인으로 스타일 변경
+        $('p').css('color', 'red')
+            .slideUp('fast', function() {
+                // 콜백함수를 이용해서 후속 조치 설정 가능.
+                $('body').css('backgroundColor', 'yellow');
+            }).slideDown('slow', function() {
+                $('body').css('backgroundColor', '');
+            });
+      });
+    });
+  </script>
+</body>
+</html>
+

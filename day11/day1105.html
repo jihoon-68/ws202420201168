@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Custom jQuery Plugin Example</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <h2>Custom jQuery Plugin Example</h2>
+  <p>This is a paragraph with some text.</p>
+   <p>This is a paragraph with some text.</p>
+  <button id="btn">p태그 스타일 변경</button>
+  <hr>
+
+  <button id="btn2">li태그 스타일 변경</button>
+  <ul>
+    <li>Hello</li>
+    <li>World</li>
+    <li>Korea</li>
+    <li>Apple</li>
+    <li>Banana</li>
+    <li>Orange</li>
+    <li>Mango</li>
+  </ul>
+
+  <script>
+    // 사용자 정의 플러그인 "highlight" 추가
+    $.fn.myFn= function(bgcolor) {
+      this.each(function(i, dom) {
+        if(i%2 ===0){
+            $(this).css({
+           backgroundColor: bgcolor?bgcolor:"yellow",
+           fontWeight: 'bold'
+         });
+        }
+      });
+    };
+
+    $.fn.myFn2= function() {
+        this.colors = ['red','orange','blue','pink','green','brown','gray'];
+        console.log(this.colors);
+        //var THIS = this;
+        this.each((i, dom) => {
+            $(dom).css({
+                backgroundColor: this.colors[i],
+                fontWeight: 'bold'
+            });
+        });
+    }
+
+    // 버튼 클릭 시 플러그인 호출
+    $(document).ready(function() {
+      $('#btn').click(function() {
+        $('p').myFn();
+      });
+      $('#btn2').click(function() {
+        $('li').myFn2();
+      })
+    });
+  </script>
+</body>
+</html>

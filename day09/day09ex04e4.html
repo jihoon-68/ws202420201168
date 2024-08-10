@@ -7,11 +7,12 @@
     <style>
         #box {
             border: 5px solid navy;
-            width: 300px;
-            height: 450px;
+            width: 600px;
+            height: 150px;
 
         }
         .newBox {
+            display: flex;
             position: relative;
             left: 0px;
             top: 0px;
@@ -79,7 +80,7 @@
         this.newBox = document.createElement("Box");
         this.elementUl = document.createElement("ul");
         this.stopBtn =document.createElement("button");
-        for(var i=0; i<9; i++) {
+        for(var i=1; i<46; i++) {
             this.elementLi = document.createElement("li");
             this.elementLi.innerText = i;
             this.elementUl.appendChild(this.elementLi);
@@ -108,11 +109,11 @@
         this.elementUl.style.top = "0px";
         this.y = 0;
         this.intervalRef = setInterval(() => {
-            this.y -= 10;
+            this.y -= 20;
             // this가 어떻게 바뀌는 확인 필수.
             //console.log(this);
             this.elementUl.style.top = this.y + "px";
-            if(this.y <= -900) {
+            if(this.y <= -4500) {
                 this.y = 0;
             }
         }, speed);
@@ -132,7 +133,6 @@
     const boxArr = [
         new Box(),new Box(),new Box(),
         new Box(),new Box(),new Box(),
-        new Box(),new Box(),new Box()
     ];
     for(var i=0; i<boxArr.length; i++) {
         const newBox = boxArr[i].init();
@@ -142,7 +142,7 @@
     const startBtn = document.querySelector("#startBtn");
     startBtn.addEventListener('click', function(event) {
         boxArr.forEach(function(box){
-            box.start(Math.floor(1 + Math.random()*15));
+            box.start(Math.floor(1 + Math.random()*10));
         })
     });
     stopBtn.addEventListener('click', function(event) {

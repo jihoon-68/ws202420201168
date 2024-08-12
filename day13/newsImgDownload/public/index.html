@@ -15,10 +15,21 @@
 
     <script type="text/babel">
         // 새로운 컴포넌트 선언 - HTML 태그처럼 사용
+        const TodoList = () =>{
+            return(<>
+            <p><input type="text"/>
+            {
+                console.log("여가는 자바스크립트 구간")
+
+            }
+            <button>저장</button></p>
+            </>);
+        }
+
         function Hello() {
             return (<>
                 <h2>Welcome</h2>
-                <h3>오신것을 환영합니다.</h3>
+                <TodoList />
             </>);
         }
 

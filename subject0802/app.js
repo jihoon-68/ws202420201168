@@ -99,7 +99,8 @@ app.put("/modify", (req, res) => {
   }
   res.send("success");
 });
-//댓글수정 함수
+
+/*
 app.put("/modify", (req, res) => {
   var modifyinfor = req.body;
 
@@ -112,7 +113,7 @@ app.put("/modify", (req, res) => {
     memberListdata[idex].rank = modifyinfor.rank;
   }
   res.send("success");
-});
+});*/
 
 //삭제 함수
 app.delete("/delete", (req, res) => {

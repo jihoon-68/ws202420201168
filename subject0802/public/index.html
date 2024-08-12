@@ -68,7 +68,6 @@
                   <tr>
                 `;
               });
-  
               memberstr +=`
                 <tr data-seq="${member.seq}">
                   <td rowspan="2"><input type="checkbox" ${member.ckBox?"checked":""}></td>
@@ -145,13 +144,6 @@
       var trElement = memberListdata.parentElement.parentElement
       var seq = trElement.dataset.seq;
       var cells = trElement.cells;
-      
-      
-      //console.log(trElement.cells.length);
-      //console.log(trElement.cells[3]);
-      //console.log(trElement.cells[4]);
-      //console.log(trElement.cells[5]);
-
       // if문으로 큰표 수정 인지 작은 수정인지 판별!
       if(cells.length == 8){
         for (let index = 3; index < 6; index++) {

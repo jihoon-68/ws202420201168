@@ -1,0 +1,17 @@
+{
+  "name": "openapi_ex",
+  "version": "1.0.0",
+  "description": "- 카페 : https://cafe.naver.com/comstudy21/14039\r -",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.3",
+    "cheerio": "^1.0.0",
+    "express": "^4.19.2"
+  }
+}

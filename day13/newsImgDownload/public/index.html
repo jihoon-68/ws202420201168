@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- React CDN 사용 -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <h1>Hello React Project</h1>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // 새로운 컴포넌트 선언 - HTML 태그처럼 사용
+        function Hello() {
+            return (<>
+                <h2>Welcome</h2>
+                <h3>오신것을 환영합니다.</h3>
+            </>);
+        }
+
+        // javascript가 아닌 babel로 type 지정.
+        const root = ReactDOM.createRoot(document.getElementById('root') );
+        // XML은 root 엘리먼트가 하나만 있어야 한다.
+        // root.render(<>
+        //     <h2>Welcome</h2>
+        //     <h3>오신것을 환영합니다.</h3>
+        // </>);
+        // root.render( new Hello() );
+        root.render( <Hello /> );
+    </script>
+</body>
+</html>

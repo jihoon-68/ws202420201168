@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .okTitle{
+            text-decoration: overline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Todo List</h1>
+    <p>
+        할일: <input type="text" class="title">
+        <button id="saveBtn" onclick="append()">SAVE</button>
+    </p>
+    <ul class="resultArea">
+    </ul>
+
+    <script>
+        var saveBtn = document.querySelector("#saveBtn");
+        var title = document.querySelector(".title");
+
+        // 할 일 삭제 기능이 가능하도록 Array를 활용 한다.
+        var todoList = [
+            {no:101, title:"hello", done:false},
+            {no:102, title:"hello2", done:false},
+            {no:103, title:"hello3", done:false},
+            {no:104, title:"hello4", done:false}
+        ];
+
+        function findIndex(todoList,todo){
+            var idx = todoList.findIndex(function(t) {
+                        return t.no === todo.no
+                    });
+        }
+
+        function drawList() {
+            var listArea = document.querySelector(".resultArea");
+            listArea.innerHTML = "";
+
+            todoList.forEach(function(todo) {
+                var liTag = document.createElement("li");
+                var delBtn = document.createElement("button");
+                var ckBox =document.createElement("input");
+                var span =document.createElement("span");
+
+                
+                liTag.style.listStyle= "none";
+                ckBox.setAttribute("type","checkbox");
+                span.setAttribute("class","");
+                if(todo.done){
+                    console.dir(liTag);
+                    ckBox.setAttribute("checkbox","checkbox")
+                    pan.setAttribute("class","okTitle");
+                }
+                span.innerText = todo.title + " ";
+                delBtn.innerText = "Delete";
+
+
+                delBtn.addEventListener('click', function(event) {
+                    let idx = findIndex(todoList,todo);
+                    if(idx != -1) {
+                        todoList.splice(idx, 1);
+                        // 지운 후 다시 렌더링
+                        drawList();
+                    }
+                });
+                ckBox.addEventListener('change',function(e){
+                    console.dir(e);
+                    let idex = findIndex(todoList,todo);
+                    if(idx != -1) {
+                       todoList[idx].done = !todoList[idx].done;
+                       drawList();
+                    }
+                })
+                liTag.appendChild(ckBox);
+                liTag.appendChild(span);
+                liTag.appendChild(delBtn);
+                listArea.appendChild(liTag);
+                
+            });
+        }
+        drawList();
+
+        // Array에 새 할 일 추가
+        function append() {
+            todoList.push({no:todoList.no++ ,title:title.value,done:false});
+            drawList();
+        }
+
+        saveBtn.onclick = function() {
+            append()
+        }
+
+        title.onkeydown = function(e) {
+            if(e.keyCode === 13) {
+                append();
+            }
+        }
+    </script>
+</body>
+</html>
